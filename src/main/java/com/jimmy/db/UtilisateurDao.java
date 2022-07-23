@@ -1,19 +1,17 @@
 package com.jimmy.db;
 
-import java.sql.Connection;
-
 import com.jimmy.classes.Utilisateur;
 
 public interface UtilisateurDao {
 
-	public void createTable(Connection connexion);
+	public void createTable();
 
-	public void deleteTable(Connection connexion);
+	public void deleteTable();
 
-	public Utilisateur getById(Connection connexion, int id);
+	public Utilisateur getById(int id);
 
-	public int create(Connection connexion, Utilisateur utilisateur);
+	public int create(Utilisateur utilisateur);
 
-	public void delete(Connection connexion, int id);
+	public void delete(int id);
 
 }

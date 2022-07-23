@@ -9,10 +9,19 @@ import com.jimmy.classes.Utilisateur;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
 
+	private ConnexionDB connexionDB;
+	private Connection connexion;
+
+	public UtilisateurDaoImpl() {
+		connexionDB = new ConnexionDBMySql();
+	}
+
 	@Override
-	public Utilisateur getById(Connection connexion, int id) {
+	public Utilisateur getById(int id) {
 
 		String sql = "SELECT nom, mot_de_passe FROM utilisateur WHERE id = ? ";
+		ouvrirConnexion();
+
 		try {
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
@@ -32,10 +41,12 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public int create(Connection connexion, Utilisateur utilisateur) {
+	public int create(Utilisateur utilisateur) {
 		try {
-			int id = rechercherId(connexion);
+			int id = rechercherId();
 			String sql = "INSERT INTO utilisateur (id, nom, mot_de_passe) VALUES ( ? , ? , ? )";
+			ouvrirConnexion();
+
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			preparedStatement.setString(2, utilisateur.getNom());
@@ -53,8 +64,9 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public void delete(Connection connexion, int id) {
+	public void delete(int id) {
 		String sql = "DELETE FROM utilisateur WHERE id = ?";
+		ouvrirConnexion();
 
 		try {
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
@@ -66,7 +78,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public void createTable(Connection connexion) {
+	public void createTable() {
 
 		String sql = """
 				CREATE TABLE `nutrition`.`utilisateur` (
@@ -76,6 +88,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 				  PRIMARY KEY (`id`, `nom`),
 				  UNIQUE INDEX `nom_UNIQUE` (`nom` ASC) VISIBLE);
 										""";
+		ouvrirConnexion();
 		Statement stmt = null;
 
 		try {
@@ -94,8 +107,9 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public void deleteTable(Connection connexion) {
+	public void deleteTable() {
 		String sql = "DROP TABLE `nutrition`.`utilisateur`";
+		ouvrirConnexion();
 
 		Statement stmt = null;
 		try {
@@ -113,9 +127,11 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 	}
 
-	private int rechercherId(Connection connexion) throws Exception {
+	private int rechercherId() throws Exception {
 
 		String sql = "SELECT MAX(id) from utilisateur";
+		ouvrirConnexion();
+
 		Statement stmt = connexion.createStatement();
 		ResultSet result = stmt.executeQuery(sql);
 		int id = 0;
@@ -125,5 +141,9 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 		return id;
 
+	}
+
+	private void ouvrirConnexion() {
+		connexion = connexionDB.ouvrirConnexion();
 	}
 }
