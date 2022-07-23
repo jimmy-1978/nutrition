@@ -15,6 +15,12 @@ public class Utilisateur {
 		setMotDePasse(motDePasse);
 	}
 
+	public Utilisateur(int id, String nom, String motDePasse) {
+		setId(id);
+		setNom(nom);
+		setMotDePasse(motDePasse);
+	}
+
 	public void setId(int id) {
 
 		this.id = id;

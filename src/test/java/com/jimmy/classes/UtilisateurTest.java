@@ -70,4 +70,20 @@ class UtilisateurTest {
 
 	}
 
+	@Test
+	void creationDUnUtilisateurAvecIdEtNomEtMotDePasse() {
+
+		String[] tabParam = { "45", "tartempion", "pass" };
+		String[] tabResultat = new String[3];
+
+		Utilisateur utilisateur = new Utilisateur(Integer.parseInt(tabParam[0]), tabParam[1], tabParam[2]);
+
+		tabResultat[0] = String.valueOf(utilisateur.getId());
+		tabResultat[1] = utilisateur.getNom();
+		tabResultat[2] = utilisateur.getMotDePasse();
+
+		assertThat(tabResultat).isEqualTo(tabParam);
+
+	}
+
 }
