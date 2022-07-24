@@ -75,6 +75,26 @@ class UtilisateurDaoImplTest {
 	}
 
 	@Test
+	void accesAUnUtilisateurParSonNom() {
+
+		String[] tabParam = { "toto", "1234" };
+		String[] tabResultat = new String[2];
+
+		Utilisateur utilisateur = new Utilisateur(tabParam[0], tabParam[1]);
+		utilisateurDaoImpl.create(utilisateur);
+
+		utilisateur = utilisateurDaoImpl.getByNom(tabParam[0]);
+
+		tabResultat[0] = utilisateur.getNom();
+		tabResultat[1] = utilisateur.getMotDePasse();
+
+		assertThat(tabResultat).isEqualTo(tabParam);
+
+		utilisateurDaoImpl.delete(utilisateur.getId());
+
+	}
+
+	@Test
 	void deleteDUnUtilisateur() {
 
 		Utilisateur utilisateur = new Utilisateur("toto", "1234");

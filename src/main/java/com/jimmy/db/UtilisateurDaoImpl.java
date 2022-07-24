@@ -41,6 +41,32 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
+	public Utilisateur getByNom(String nom) {
+
+		String sql = "SELECT id, mot_de_passe FROM utilisateur WHERE nom = ?";
+		ouvrirConnexion();
+		try {
+			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+			preparedStatement.setString(1, nom);
+
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				int id = result.getInt("id");
+				String motDePasse = result.getString("mot_de_passe");
+
+				return new Utilisateur(id, nom, motDePasse);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	@Override
 	public int create(Utilisateur utilisateur) {
 		try {
 			int id = rechercherId();
