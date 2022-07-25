@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jimmy.classes.Activite;
 import com.jimmy.enums.TypeActivite;
@@ -153,11 +155,60 @@ public class ActiviteDaoImpl implements ActiviteDao {
 			id = result.getInt(1) + 1; // Même si null, ça donne bien id 1 au final
 		}
 
+		try {
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return id;
 
 	}
 
 	private void ouvrirConnexion() {
 		connexion = connexionDB.ouvrirConnexion();
+	}
+
+	@Override
+	public List<Activite> getByNom(String nom) {
+
+		String sql = "SELECT id, nom_utilisateur, type, nb_calories_brulees, date FROM activite WHERE nom_utilisateur = ?";
+		ouvrirConnexion();
+
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = connexion.prepareStatement(sql);
+			preparedStatement.setString(1, nom);
+
+			ResultSet result = preparedStatement.executeQuery();
+			List<Activite> listeActivite = new ArrayList<Activite>();
+			Activite activite = null;
+			while (result.next()) {
+
+				int id = result.getInt("id");
+				String nomUtilisateur = result.getString("nom_utilisateur");
+				TypeActivite typeActivite = TypeActivite.valueOf(result.getString("type"));
+				int nbCaloriesBrulees = result.getInt("nb_calories_brulees");
+				java.sql.Date dateSql = result.getDate("date");
+				LocalDate dateActivite = dateSql.toLocalDate();
+
+				activite = new Activite(id, nomUtilisateur, dateActivite, typeActivite, nbCaloriesBrulees);
+				listeActivite.add(activite);
+
+			}
+
+			return listeActivite;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			preparedStatement.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

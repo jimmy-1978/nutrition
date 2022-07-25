@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,5 +92,19 @@ class ActiviteDaoImplTest {
 
 		assertThat(activite).isNull();
 
+	}
+
+	@Test
+	void rechercheListeDesActivitesParNom() {
+
+		Object[] tabParam = { "Tom", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
+
+		Activite activite = new Activite((String) tabParam[0], (LocalDate) tabParam[1], (TypeActivite) tabParam[2],
+				(int) tabParam[3]);
+		int id = activiteDao.create(activite);
+
+		List<Activite> listeActivite = activiteDao.getByNom("Tom");
+
+		assertThat(listeActivite).isNotNull();
 	}
 }
