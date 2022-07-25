@@ -22,7 +22,7 @@ public class Deconnexion extends HttpServlet {
 		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm(request, response);
 		connexionUtilisateur.seDeconnecter();
 
-		request.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 
 	}
 

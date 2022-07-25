@@ -19,7 +19,7 @@ public class Connexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 
 	}
 
@@ -29,7 +29,7 @@ public class Connexion extends HttpServlet {
 		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm(request, response);
 		connexionUtilisateur.seConnecter();
 
-		request.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 
 	}
 
