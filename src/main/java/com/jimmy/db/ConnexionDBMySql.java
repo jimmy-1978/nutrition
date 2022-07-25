@@ -17,7 +17,8 @@ public class ConnexionDBMySql implements ConnexionDB {
 
 		} else {
 			try {
-				Class.forName("com.mysql.jdbc.Driver"); // Charge le driver dans la VM
+
+				Class.forName("com.mysql.cj.jdbc.Driver"); // Charge le driver dans la VM
 
 				// On recherche les paramètres de connexion à la DB MySQL
 
