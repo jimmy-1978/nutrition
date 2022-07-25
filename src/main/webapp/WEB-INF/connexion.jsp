@@ -9,6 +9,9 @@
 	<c:choose>
 		<c:when test="${connecte}"> <!-- "connecte" = variable de session -->  
 			<p>Vous êtes connecté en tant que <c:out value="${utilisateur.nom}"></c:out></p>
+			<form method="get" action="deconnexion">
+				<input type="submit" value="Se déconnecter">
+			</form>
 		</c:when>
 		<c:otherwise>
 			<form method="post" action="connexion"> <!-- Effectuera un POST sur l'URL "connexion" -->

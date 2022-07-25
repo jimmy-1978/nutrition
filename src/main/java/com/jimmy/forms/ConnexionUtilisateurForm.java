@@ -58,6 +58,13 @@ public class ConnexionUtilisateurForm {
 		}
 	}
 
+	public void seDeconnecter() {
+		HttpSession session = request.getSession();
+		session.removeAttribute("erreurDeConnexion");
+		session.removeAttribute("utilisateur");
+		session.setAttribute("connecte", false);
+	}
+
 	private boolean controleDonneesFormulaire(String nom, String motDePasse) {
 
 		System.out.println("Controles des paramètres A IMPLEMENTER et comment gérer les erreurs sur le front?");

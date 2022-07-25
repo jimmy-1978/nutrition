@@ -35,4 +35,14 @@
     <servlet-name>Connexion</servlet-name>
     <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Deconnexion</display-name>
+    <servlet-name>Deconnexion</servlet-name>
+    <servlet-class>com.jimmy.servlets.Deconnexion</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Deconnexion</servlet-name>
+    <url-pattern>/deconnexion</url-pattern>
+  </servlet-mapping>
 </web-app>
