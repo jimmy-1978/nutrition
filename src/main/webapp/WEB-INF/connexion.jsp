@@ -16,7 +16,7 @@
 		<c:otherwise>
 			<form method="post" action="connexion"> <!-- Effectuera un POST sur l'URL "connexion" -->
 				<label for="nom">Nom d'utilisateur</label>
-				<input type="text" id="nom" name="nom_param"/><br>
+				<input type="text" id="nom" name="nom_param" value="${utilisateur.nom}"/><br>
 				<label for="mot_de_passe">Mot de passe</label> 
 				<input	type="password" id="mot_de_passe" name="mot_de_passe_param" /><br>
 				<input type="submit" value="Se connecter" />

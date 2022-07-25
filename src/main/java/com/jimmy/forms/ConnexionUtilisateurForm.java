@@ -32,17 +32,20 @@ public class ConnexionUtilisateurForm {
 
 		String nom = (String) request.getParameter("nom_param");
 		String motDePasse = (String) request.getParameter("mot_de_passe_param");
+		utilisateur = new Utilisateur(nom, motDePasse);
+		session.setAttribute("utilisateur", utilisateur); // Permet de ré-afficher les données sur le formulaire, même
+															// si la tentative de connexion échoue
 
 		// On contrôle les données du formulaire
 
-		boolean controleOk = controleDonneesFormulaire(nom, motDePasse);
+		boolean controleOk = controleDonneesFormulaire();
 
 		// Contrôle de l'existence de l'utilisateur en DB + bon mot de passe
 
 		if (controleOk) {
 
 			UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
-			utilisateur = utilisateurDaoImpl.getByNom(nom);
+			utilisateur = utilisateurDaoImpl.getByNom(utilisateur.getNom());
 
 			if (utilisateur != null && utilisateur.getMotDePasse().equals(motDePasse)) {
 
@@ -65,7 +68,7 @@ public class ConnexionUtilisateurForm {
 		session.setAttribute("connecte", false);
 	}
 
-	private boolean controleDonneesFormulaire(String nom, String motDePasse) {
+	private boolean controleDonneesFormulaire() {
 
 		System.out.println("Controles des paramètres A IMPLEMENTER et comment gérer les erreurs sur le front?");
 
