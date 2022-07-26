@@ -2,6 +2,8 @@ package com.jimmy.classes;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,30 +59,33 @@ class UtilisateurTest {
 	}
 
 	@Test
-	void creationDUnUtilisateurAvecNomEtMotDePasse() {
+	void creationDUnUtilisateurAvecNomEtMotDePasseEtDateDeNaissance() {
 
-		String[] tabParam = { "toto", "1234" };
-		String[] tabResultat = new String[2];
+		Object[] tabParam = { "toto", "1234", LocalDate.now() };
+		Object[] tabResultat = new Object[3];
 
-		Utilisateur utilisateur = new Utilisateur(tabParam[0], tabParam[1]);
+		Utilisateur utilisateur = new Utilisateur((String) tabParam[0], (String) tabParam[1], (LocalDate) tabParam[2]);
 		tabResultat[0] = utilisateur.getNom();
 		tabResultat[1] = utilisateur.getMotDePasse();
+		tabResultat[2] = utilisateur.getDateDeNaissance();
 
 		assertThat(tabResultat).isEqualTo(tabParam);
 
 	}
 
 	@Test
-	void creationDUnUtilisateurAvecIdEtNomEtMotDePasse() {
+	void creationDUnUtilisateurAvecIdEtNomEtMotDePasseEtDateDeNaissance() {
 
-		String[] tabParam = { "45", "tartempion", "pass" };
-		String[] tabResultat = new String[3];
+		Object[] tabParam = { 45, "tartempion", "pass", LocalDate.now() };
+		Object[] tabResultat = new Object[4];
 
-		Utilisateur utilisateur = new Utilisateur(Integer.parseInt(tabParam[0]), tabParam[1], tabParam[2]);
+		Utilisateur utilisateur = new Utilisateur((int) tabParam[0], (String) tabParam[1], (String) tabParam[2],
+				(LocalDate) tabParam[3]);
 
-		tabResultat[0] = String.valueOf(utilisateur.getId());
+		tabResultat[0] = utilisateur.getId();
 		tabResultat[1] = utilisateur.getNom();
 		tabResultat[2] = utilisateur.getMotDePasse();
+		tabResultat[3] = utilisateur.getDateDeNaissance();
 
 		assertThat(tabResultat).isEqualTo(tabParam);
 
