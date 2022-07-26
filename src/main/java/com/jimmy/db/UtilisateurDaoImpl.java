@@ -1,9 +1,11 @@
 package com.jimmy.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import com.jimmy.classes.Utilisateur;
 
@@ -19,7 +21,11 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	@Override
 	public Utilisateur getById(int id) {
 
-		String sql = "SELECT nom, mot_de_passe FROM utilisateur WHERE id = ? ";
+		String sql = """
+				SELECT nom, mot_de_passe, date_de_naissance
+				FROM utilisateur
+				WHERE id = ?
+				""";
 		ouvrirConnexion();
 
 		try {
@@ -29,8 +35,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			while (result.next()) {
 				String nom = result.getString("nom");
 				String motDePasse = result.getString("mot_de_passe");
+				Date dateSql = result.getDate("date_de_naissance");
+				LocalDate dateDeNaissance = dateSql.toLocalDate();
 
-				return new Utilisateur(id, nom, motDePasse);
+				return new Utilisateur(id, nom, motDePasse, dateDeNaissance);
 
 			}
 		} catch (Exception e) {
@@ -43,7 +51,11 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	@Override
 	public Utilisateur getByNom(String nom) {
 
-		String sql = "SELECT id, mot_de_passe FROM utilisateur WHERE nom = ?";
+		String sql = """
+				SELECT id, mot_de_passe, date_de_naissance
+				FROM utilisateur
+				WHERE nom = ?
+				""";
 		ouvrirConnexion();
 		try {
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
@@ -53,8 +65,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			while (result.next()) {
 				int id = result.getInt("id");
 				String motDePasse = result.getString("mot_de_passe");
+				Date dateSql = result.getDate("date_de_naissance");
+				LocalDate dateDeNaissance = dateSql.toLocalDate();
 
-				return new Utilisateur(id, nom, motDePasse);
+				return new Utilisateur(id, nom, motDePasse, dateDeNaissance);
 
 			}
 
@@ -70,13 +84,19 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	public int create(Utilisateur utilisateur) {
 		try {
 			int id = rechercherId();
-			String sql = "INSERT INTO utilisateur (id, nom, mot_de_passe) VALUES ( ? , ? , ? )";
+			String sql = """
+					INSERT INTO utilisateur
+					(id, nom, mot_de_passe, date_de_naissance)
+					VALUES ( ? , ? , ? , ? )
+					""";
 			ouvrirConnexion();
 
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			preparedStatement.setString(2, utilisateur.getNom());
 			preparedStatement.setString(3, utilisateur.getMotDePasse());
+			Date dateSql = Date.valueOf(utilisateur.getDateDeNaissance());
+			preparedStatement.setDate(4, dateSql);
 
 			preparedStatement.execute();
 
@@ -91,7 +111,11 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 	@Override
 	public void delete(int id) {
-		String sql = "DELETE FROM utilisateur WHERE id = ?";
+		String sql = """
+				DELETE FROM utilisateur
+				WHERE id = ?
+				""";
+
 		ouvrirConnexion();
 
 		try {
@@ -107,12 +131,13 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	public void createTable() {
 
 		String sql = """
-				CREATE TABLE `nutrition`.`utilisateur` (
-				  `id` INT NOT NULL,
-				  `nom` VARCHAR(30) NOT NULL,
-				  `mot_de_passe` VARCHAR(30) NULL,
-				  PRIMARY KEY (`id`, `nom`),
-				  UNIQUE INDEX `nom_UNIQUE` (`nom` ASC) VISIBLE);
+				CREATE TABLE utilisateur (
+				  id INT NOT NULL,
+				  nom VARCHAR(30) NOT NULL,
+				  mot_de_passe VARCHAR(30) NOT NULL,
+				  date_de_naissance DATE NOT NULL,
+				  PRIMARY KEY (id, nom),
+				  UNIQUE INDEX nom_UNIQUE (nom ASC) VISIBLE);
 										""";
 		ouvrirConnexion();
 		Statement stmt = null;
@@ -134,7 +159,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 	@Override
 	public void deleteTable() {
-		String sql = "DROP TABLE `nutrition`.`utilisateur`";
+		String sql = "DROP TABLE utilisateur";
 		ouvrirConnexion();
 
 		Statement stmt = null;
@@ -155,7 +180,10 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 	private int rechercherId() throws Exception {
 
-		String sql = "SELECT MAX(id) from utilisateur";
+		String sql = """
+				SELECT MAX(id) 
+				FROM utilisateur
+				""";
 		ouvrirConnexion();
 
 		Statement stmt = connexion.createStatement();
