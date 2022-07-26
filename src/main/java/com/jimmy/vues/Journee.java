@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jimmy.classes.Activite;
 import com.jimmy.classes.Aliment;
-import com.jimmy.util.JourDeLaSemaine;
+import com.jimmy.util.DateUtil;
 
 public class Journee {
 	private String nomUtilisateur;
@@ -15,9 +15,6 @@ public class Journee {
 	private List<Aliment> listeAliment;
 	private int totalCaloriesAliments;
 
-	public Journee() {
-	}
-
 	public Journee(LocalDate dateJournee) {
 		this.dateJournee = dateJournee;
 	}
@@ -26,10 +23,10 @@ public class Journee {
 		return dateJournee;
 	}
 
-	public String vueDate() {
+	public String vue() {
 
-		return JourDeLaSemaine.nomCourt(dateJournee) + "/" + dateJournee.getYear() + "-" + dateJournee.getMonthValue()
-				+ "-" + dateJournee.getDayOfMonth();
+		return DateUtil.rechercherNomCourtJour(dateJournee) + "/" + dateJournee.getDayOfMonth() + "-"
+				+ dateJournee.getMonthValue() + "-" + dateJournee.getYear();
 	}
 
 }

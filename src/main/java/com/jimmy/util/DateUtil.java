@@ -2,9 +2,9 @@ package com.jimmy.util;
 
 import java.time.LocalDate;
 
-public class JourDeLaSemaine {
+public class DateUtil {
 
-	public static String nomCourt(LocalDate date) {
+	public static String rechercherNomCourtJour(LocalDate date) {
 
 		String nomCourt = null;
 

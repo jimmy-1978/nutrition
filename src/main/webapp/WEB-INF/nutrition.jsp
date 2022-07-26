@@ -27,17 +27,15 @@
 		</c:otherwise>
 	</c:choose>
 	
-	<c:if test="${!empty listeJournee}">
-		<h1>Liste des journées</h1>
+	<c:if test="${!empty listeSemaine}">
+		<h1>Liste des semaines</h1>
 		<ul>
-			<c:forEach items="${listeJournee}" var="journee">
+			<c:forEach items="${listeSemaine}" var="semaine">
 				<li>
-					<c:out value="${journee.vueDate()}"></c:out>
+					<c:out value="${semaine.vue()}"></c:out>
 				</li>
 			</c:forEach>
 		</ul>
-	</c:if>
-	
-	
+	</c:if>	
 </body>
 </html>
