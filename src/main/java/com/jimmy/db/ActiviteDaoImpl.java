@@ -1,6 +1,7 @@
 package com.jimmy.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,7 +24,11 @@ public class ActiviteDaoImpl implements ActiviteDao {
 	@Override
 	public Activite getById(int id) {
 
-		String sql = "SELECT id, nom_utilisateur, type, nb_calories_brulees, date FROM activite WHERE id = ? ";
+		String sql = """
+				SELECT id, nom_utilisateur, type, nb_calories_brulees, date
+				FROM activite
+				WHERE id = ?
+				""";
 		ouvrirConnexion();
 
 		try {
@@ -35,7 +40,7 @@ public class ActiviteDaoImpl implements ActiviteDao {
 				TypeActivite typeActivite = TypeActivite.valueOf(result.getString("type"));
 				int nbCaloriesBrulees = result.getInt("nb_calories_brulees");
 
-				java.sql.Date dateSql = result.getDate("date");
+				Date dateSql = result.getDate("date");
 				LocalDate dateActivite = dateSql.toLocalDate();
 
 				Activite activite = new Activite(id, nomUtilisateur, dateActivite, typeActivite, nbCaloriesBrulees);
@@ -54,7 +59,10 @@ public class ActiviteDaoImpl implements ActiviteDao {
 	public int create(Activite activite) {
 		try {
 			int id = rechercherId();
-			String sql = "INSERT INTO activite (id, nom_utilisateur, type, nb_calories_brulees, date) VALUES ( ? , ? , ? , ? , ? )";
+			String sql = """
+					INSERT INTO activite (id, nom_utilisateur, type, nb_calories_brulees, date)
+					VALUES ( ? , ? , ? , ? , ? )
+					""";
 			ouvrirConnexion();
 
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
@@ -63,7 +71,7 @@ public class ActiviteDaoImpl implements ActiviteDao {
 			preparedStatement.setString(3, activite.getTypeActivite().toString());
 			preparedStatement.setInt(4, activite.getNbCaloriesBrulees());
 
-			java.sql.Date dateSql = java.sql.Date.valueOf(activite.getDateActivite());
+			Date dateSql = Date.valueOf(activite.getDateActivite());
 			preparedStatement.setDate(5, dateSql);
 
 			preparedStatement.execute();
@@ -79,7 +87,10 @@ public class ActiviteDaoImpl implements ActiviteDao {
 
 	@Override
 	public void delete(int id) {
-		String sql = "DELETE FROM activite WHERE id = ?";
+		String sql = """
+				DELETE FROM activite
+				WHERE id = ?
+				""";
 		ouvrirConnexion();
 
 		try {
@@ -95,14 +106,14 @@ public class ActiviteDaoImpl implements ActiviteDao {
 	public void createTable() {
 
 		String sql = """
-				CREATE TABLE `nutrition`.`activite` (
-				  `id` INT NOT NULL,
-				  `nom_utilisateur` VARCHAR(30) NOT NULL,
-				  `type` VARCHAR(30) NOT NULL,
-				  `nb_calories_brulees` INT NOT NULL,
-				  `date` DATE NOT NULL,
-				  PRIMARY KEY (`id`, `nom_utilisateur`),
-				  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+				CREATE TABLE activite (
+				  id INT NOT NULL,
+				  nom_utilisateur VARCHAR(30) NOT NULL,
+				  type VARCHAR(30) NOT NULL,
+				  nb_calories_brulees INT NOT NULL,
+				  date DATE NOT NULL,
+				  PRIMARY KEY (id, nom_utilisateur),
+				  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);
 										""";
 		ouvrirConnexion();
 		Statement stmt = null;
@@ -124,7 +135,7 @@ public class ActiviteDaoImpl implements ActiviteDao {
 
 	@Override
 	public void deleteTable() {
-		String sql = "DROP TABLE `nutrition`.`activite`";
+		String sql = "DROP TABLE activite";
 		ouvrirConnexion();
 
 		Statement stmt = null;
@@ -145,7 +156,10 @@ public class ActiviteDaoImpl implements ActiviteDao {
 
 	private int rechercherId() throws Exception {
 
-		String sql = "SELECT MAX(id) from activite";
+		String sql = """
+				SELECT MAX(id)
+				FROM activite
+				""";
 		ouvrirConnexion();
 
 		Statement stmt = connexion.createStatement();
@@ -172,7 +186,11 @@ public class ActiviteDaoImpl implements ActiviteDao {
 	@Override
 	public List<Activite> getByNom(String nom) {
 
-		String sql = "SELECT id, nom_utilisateur, type, nb_calories_brulees, date FROM activite WHERE nom_utilisateur = ?";
+		String sql = """
+				SELECT id, nom_utilisateur, type, nb_calories_brulees, date
+				FROM activite
+				WHERE nom_utilisateur = ?
+				""";
 		ouvrirConnexion();
 
 		PreparedStatement preparedStatement = null;
@@ -189,7 +207,7 @@ public class ActiviteDaoImpl implements ActiviteDao {
 				String nomUtilisateur = result.getString("nom_utilisateur");
 				TypeActivite typeActivite = TypeActivite.valueOf(result.getString("type"));
 				int nbCaloriesBrulees = result.getInt("nb_calories_brulees");
-				java.sql.Date dateSql = result.getDate("date");
+				Date dateSql = result.getDate("date");
 				LocalDate dateActivite = dateSql.toLocalDate();
 
 				activite = new Activite(id, nomUtilisateur, dateActivite, typeActivite, nbCaloriesBrulees);
@@ -214,7 +232,11 @@ public class ActiviteDaoImpl implements ActiviteDao {
 
 	@Override
 	public List<Activite> getByNomAndBetweenDateFromAndDateTo(String nom, LocalDate dateFrom, LocalDate dateTo) {
-		String sql = "SELECT id, nom_utilisateur, type, nb_calories_brulees, date FROM activite WHERE nom_utilisateur = ? AND date >= ? AND date <= ?";
+		String sql = """
+				SELECT id, nom_utilisateur, type, nb_calories_brulees, date
+				FROM activite
+				WHERE nom_utilisateur = ? AND date >= ? AND date <= ?
+				""";
 		ouvrirConnexion();
 
 		PreparedStatement preparedStatement = null;
@@ -222,11 +244,11 @@ public class ActiviteDaoImpl implements ActiviteDao {
 			preparedStatement = connexion.prepareStatement(sql);
 			preparedStatement.setString(1, nom);
 
-			java.sql.Date dateSql;
-			dateSql = java.sql.Date.valueOf(dateFrom);
+			Date dateSql;
+			dateSql = Date.valueOf(dateFrom);
 			preparedStatement.setDate(2, dateSql);
 
-			dateSql = java.sql.Date.valueOf(dateFrom);
+			dateSql = Date.valueOf(dateTo);
 			preparedStatement.setDate(3, dateSql);
 
 			ResultSet result = preparedStatement.executeQuery();

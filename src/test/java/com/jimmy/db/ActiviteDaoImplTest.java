@@ -117,7 +117,8 @@ class ActiviteDaoImplTest {
 				(int) tabParam[3]);
 		int id = activiteDao.create(activite);
 
-		List<Activite> listeActivite = activiteDao.getByNomAndBetweenDateFromAndDateTo("Tom", LocalDate.now(), LocalDate.now());
+		List<Activite> listeActivite = activiteDao.getByNomAndBetweenDateFromAndDateTo("Tom", LocalDate.now(),
+				LocalDate.now());
 
 		assertThat(listeActivite).isNotNull();
 
