@@ -107,4 +107,21 @@ class ActiviteDaoImplTest {
 
 		assertThat(listeActivite).isNotNull();
 	}
+
+	@Test
+	void rechercheListeDesActivitesParNomEnDateDuJour() {
+
+		Object[] tabParam = { "Tom", LocalDate.now(), TypeActivite.vtt, 369 };
+
+		Activite activite = new Activite((String) tabParam[0], (LocalDate) tabParam[1], (TypeActivite) tabParam[2],
+				(int) tabParam[3]);
+		int id = activiteDao.create(activite);
+
+		List<Activite> listeActivite = activiteDao.getByNomAndBetweenDateFromAndDateTo("Tom", LocalDate.now(), LocalDate.now());
+
+		assertThat(listeActivite).isNotNull();
+
+		activiteDao.delete(id);
+
+	}
 }
