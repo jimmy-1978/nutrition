@@ -26,5 +26,18 @@
 			</form>
 		</c:otherwise>
 	</c:choose>
+	
+	<c:if test="${!empty listeJournee}">
+		<h1>Liste des journées</h1>
+		<ul>
+			<c:forEach items="${listeJournee}" var="journee">
+				<li>
+					<c:out value="${journee.vueDate()}"></c:out>
+				</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	
+	
 </body>
 </html>

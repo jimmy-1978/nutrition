@@ -9,25 +9,18 @@ public class Utilisateur {
 	private String motDePasse;
 	private LocalDate dateDeNaissance;
 
-	public Utilisateur() {
-
+	public Utilisateur(String nom, String motDePasse) {
+		this.nom = nom;
+		this.motDePasse = motDePasse;
 	}
 
 	public Utilisateur(String nom, String motDePasse, LocalDate dateDeNaissance) {
-		setNom(nom);
-		setMotDePasse(motDePasse);
-		setDateDeNaissance(dateDeNaissance);
+		this(nom, motDePasse);
+		this.dateDeNaissance = dateDeNaissance;
 	}
 
 	public Utilisateur(int id, String nom, String motDePasse, LocalDate dateDeNaissance) {
-		setId(id);
-		setNom(nom);
-		setMotDePasse(motDePasse);
-		setDateDeNaissance(dateDeNaissance);
-	}
-
-	public void setId(int id) {
-
+		this(nom, motDePasse, dateDeNaissance);
 		this.id = id;
 	}
 
@@ -36,24 +29,12 @@ public class Utilisateur {
 		return id;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
 	public String getNom() {
 		return nom;
 	}
 
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
-
 	public String getMotDePasse() {
 		return motDePasse;
-	}
-
-	public void setDateDeNaissance(LocalDate dateDeNaissance) {
-		this.dateDeNaissance = dateDeNaissance;
 	}
 
 	public LocalDate getDateDeNaissance() {
