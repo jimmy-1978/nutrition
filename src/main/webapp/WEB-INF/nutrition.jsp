@@ -32,14 +32,15 @@
 	<th></th>
 	</tr>
 	
-	<c:if test="${!empty listeSemaine}">
+	<c:if test="${!empty mois}">
+		<h1><c:out value = "${mois.nom}"></c:out> <c:out value="${mois.annee}"></c:out></h1>
 		<table>
 		<tr>
 		<c:forEach items="${tabNomLongJour}" var="nomLongJour">
 			 <th><c:out value="${nomLongJour}"></c:out></th>
 		</c:forEach>
 		<tr>
-		<c:forEach items="${listeSemaine}" var="semaine">
+		<c:forEach items="${mois.listeSemaine}" var="semaine">
 			<tr>
 			<c:forEach items="${semaine.tabJournee}" var = "journee">
 				<td>

@@ -67,7 +67,10 @@ public class Calendrier {
 			}
 		}
 
-		request.setAttribute("listeSemaine", listeSemaine);
+		Mois mois = new Mois(DateUtil.rechercherNomLongMois(dateFrom.plusWeeks(1)), dateFrom.plusWeeks(1).getYear(),
+				listeSemaine);
+
+		request.setAttribute("mois", mois);
 
 		String[] tabNomLongJour = new String[7];
 

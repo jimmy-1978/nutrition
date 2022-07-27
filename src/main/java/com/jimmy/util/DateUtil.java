@@ -4,8 +4,11 @@ import java.time.LocalDate;
 
 public class DateUtil {
 
-	private static String[] tabNomCourt = { "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim" };
-	private static String[] tabNomLong = { "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" };
+	private static String[] tabNomCourtJour = { "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim" };
+	private static String[] tabNomLongJour = { "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi",
+			"Dimanche" };
+	private static String[] tabNomLongMois = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août",
+			"Septembre", "Octobre", "Novembre", "Décembre" };
 
 	public static String rechercherNomCourtJour(LocalDate date) {
 
@@ -15,7 +18,7 @@ public class DateUtil {
 
 	public static String rechercherNomCourtJour(int numJour) {
 
-		return tabNomCourt[numJour - 1];
+		return tabNomCourtJour[numJour - 1];
 
 	}
 
@@ -27,8 +30,18 @@ public class DateUtil {
 
 	public static String rechercherNomLongJour(int numJour) {
 
-		return tabNomLong[numJour - 1];
+		return tabNomLongJour[numJour - 1];
 
+	}
+
+	public static String rechercherNomLongMois(LocalDate date) {
+
+		return rechercherNomLongMois(date.getMonthValue());
+	}
+
+	public static String rechercherNomLongMois(int i) {
+
+		return tabNomLongMois[i - 1];
 	}
 
 }

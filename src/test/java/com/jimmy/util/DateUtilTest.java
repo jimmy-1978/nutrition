@@ -3,10 +3,11 @@ package com.jimmy.util;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import org.junit.jupiter.api.Test;
 
-class JourDeLaSemaineTest {
+class DateUtilTest {
 
 	@Test
 	void controleUnJourMercrediEgalMercrediEnNomCourt() {
@@ -51,6 +52,24 @@ class JourDeLaSemaineTest {
 		String resultat = DateUtil.rechercherNomLongJour(5);
 
 		assertThat(resultat).isEqualTo("Vendredi");
+	}
+
+	@Test
+	void controleAdteEnMarsEgalMars() {
+
+		LocalDate date = LocalDate.of(2022, Month.MARCH, 1);
+
+		String resultat = DateUtil.rechercherNomLongMois(date);
+
+		assertThat(resultat).isEqualTo("Mars");
+	}
+
+	@Test
+	void controleDeuxEgalFevrier() {
+
+		String resultat = DateUtil.rechercherNomLongMois(2);
+
+		assertThat(resultat).isEqualTo("Février");
 	}
 
 }
