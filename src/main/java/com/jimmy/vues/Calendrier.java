@@ -14,18 +14,26 @@ public class Calendrier {
 	void Calendrier() {
 	}
 
-	public void chargementJournees(HttpServletRequest request, Utilisateur utilisateur) {
-
-		// Par défaut on charge à partir de la date du jour
+	public void chargementDuMoisEnCours(HttpServletRequest request, Utilisateur utilisateur) {
 
 		LocalDate dateFrom = LocalDate.now();
-		LocalDate dateTo = dateFrom.plusDays(15); // A changer par n semaines (complètes) couvrant le mois !!!!!!
+		LocalDate dateTo = LocalDate.now();
+
+		// On recule jusqu'au premier du mois
+		while (dateFrom.getDayOfMonth() != 1) {
+			dateFrom = dateFrom.minusDays(1);
+		}
+
+		// On avance jusqu'au dernier du mois
+		while (dateTo.plusDays(1).getDayOfMonth() != 1) {
+			dateTo = dateTo.plusDays(1);
+		}
 
 		chargementJournees(request, utilisateur, dateFrom, dateTo);
 
 	}
 
-	public void chargementJournees(HttpServletRequest request, Utilisateur utilisateur, LocalDate dateFrom,
+	private void chargementJournees(HttpServletRequest request, Utilisateur utilisateur, LocalDate dateFrom,
 			LocalDate dateTo) {
 
 		// Si besoin, on sélectionne les jours précédents afin d'avoir une semaine

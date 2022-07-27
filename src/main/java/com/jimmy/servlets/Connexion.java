@@ -47,7 +47,7 @@ public class Connexion extends HttpServlet {
 		if (connecte != null && connecte) {
 
 			Calendrier calendrier = new Calendrier();
-			calendrier.chargementJournees(request, (Utilisateur) session.getAttribute("utilisateur"));
+			calendrier.chargementDuMoisEnCours(request, (Utilisateur) session.getAttribute("utilisateur"));
 
 		}
 	}
