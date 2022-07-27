@@ -13,9 +13,7 @@ public class Journee {
 	private String nomUtilisateur;
 	private LocalDate dateJournee;
 	private List<Activite> listeActivite;
-	private int totalCaloriesActivites;
 	private List<Aliment> listeAliment;
-	private int totalCaloriesAliments;
 
 	public Journee(String nomUtilisateur, LocalDate dateJournee) {
 		this.nomUtilisateur = nomUtilisateur;
