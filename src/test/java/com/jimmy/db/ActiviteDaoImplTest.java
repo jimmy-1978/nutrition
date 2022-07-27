@@ -44,7 +44,7 @@ class ActiviteDaoImplTest {
 	@Test
 	void creationActivite() {
 
-		Object[] tabParam = { "Jim", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
+		Object[] tabParam = { "Toto", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
 
 		Activite activite = new Activite((String) tabParam[0], (LocalDate) tabParam[1], (TypeActivite) tabParam[2],
 				(int) tabParam[3]);
@@ -60,7 +60,7 @@ class ActiviteDaoImplTest {
 
 		Date maDate = Date.from(Instant.now());
 
-		Object[] tabParam = { "Jim", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
+		Object[] tabParam = { "Toto", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
 
 		Activite activite = new Activite((String) tabParam[0], (LocalDate) tabParam[1], (TypeActivite) tabParam[2],
 				(int) tabParam[3]);
@@ -80,7 +80,7 @@ class ActiviteDaoImplTest {
 	@Test
 	void deleteActivite() {
 
-		Object[] tabParam = { "Jim", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
+		Object[] tabParam = { "Toto", LocalDate.of(2022, 7, 25), TypeActivite.vtt, 369 };
 
 		Activite activite = new Activite((String) tabParam[0], (LocalDate) tabParam[1], (TypeActivite) tabParam[2],
 				(int) tabParam[3]);
