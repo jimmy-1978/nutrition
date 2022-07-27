@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Page de connexion</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css"">
+	<title>Application nutrition</title>
 </head>
 <body>
 	<c:choose>
@@ -28,14 +29,20 @@
 	</c:choose>
 	
 	<c:if test="${!empty listeSemaine}">
-		<h1>Liste des semaines</h1>
-		<ul>
-			<c:forEach items="${listeSemaine}" var="semaine">
-				<li>
-					<c:out value="${semaine.vue()}"></c:out>
-				</li>
+		<table>
+		<c:forEach items="${listeSemaine}" var="semaine">
+			<tr>
+			<c:forEach items="${semaine.tabJournee}" var = "journee">
+				<td>
+					<c:forEach items="${journee.vueLigne()}" var="ligne">
+						<c:out value ="${ligne}"></c:out><br>
+					</c:forEach>
+				</td>
 			</c:forEach>
-		</ul>
-	</c:if>	
+			</tr>
+		</c:forEach>
+		</table>
+	</c:if>
+	
 </body>
 </html>

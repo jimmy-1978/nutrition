@@ -10,14 +10,7 @@ public class Semaine {
 		this.tabJournee = tabJournee;
 	}
 
-	public String vue() {
-		String vue = "Semaine " + numero + " ";
-
-		for (int i = 0; i < tabJournee.length; i++) {
-			vue += tabJournee[i].vue() + " ";
-		}
-
-		return vue;
-
+	public Journee[] getTabJournee() {
+		return tabJournee;
 	}
 }

@@ -50,7 +50,7 @@ public class Calendrier {
 			if (date.getDayOfWeek().getValue() == 1) {
 				tabJournee = new Journee[7];
 			}
-			tabJournee[date.getDayOfWeek().getValue() - 1] = new Journee(date);
+			tabJournee[date.getDayOfWeek().getValue() - 1] = new Journee(utilisateur.getNom(), date);
 
 			if (date.getDayOfWeek().getValue() == 7) {
 				listeSemaine.add(new Semaine(numeroDeSemaine, tabJournee));
