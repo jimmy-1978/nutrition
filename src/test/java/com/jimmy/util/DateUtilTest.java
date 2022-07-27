@@ -16,7 +16,7 @@ class JourDeLaSemaineTest {
 			date = date.plusDays(1);
 		}
 
-		String resultat = JourDeLaSemaine.nomCourt(date);
+		String resultat = DateUtil.rechercherNomCourtJour(date);
 
 		assertThat(resultat).isEqualTo("Mer");
 
