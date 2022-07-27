@@ -28,7 +28,7 @@ public class Journee {
 	public List<String> vueLigne() {
 		List<String> listeLigne = new ArrayList<String>();
 		String ligne = null;
-		ligne = dateJournee.getDayOfMonth() + "-" + dateJournee.getMonthValue() + "-" + dateJournee.getYear();
+		ligne = String.valueOf(dateJournee.getDayOfMonth());
 		listeLigne.add(ligne);
 
 		for (Activite activite : listeActivite) {
