@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jimmy.classes.Utilisateur;
+import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -59,6 +60,14 @@ public class Calendrier {
 		}
 
 		request.setAttribute("listeSemaine", listeSemaine);
+
+		String[] tabNomLongJour = new String[7];
+
+		for (int i = 0; i < tabNomLongJour.length; i++) {
+			tabNomLongJour[i] = DateUtil.rechercherNomLongJour(i + 1);
+		}
+
+		request.setAttribute("tabNomLongJour", tabNomLongJour);
 
 	}
 }

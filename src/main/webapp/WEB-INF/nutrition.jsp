@@ -28,8 +28,17 @@
 		</c:otherwise>
 	</c:choose>
 	
+	<tr>
+	<th></th>
+	</tr>
+	
 	<c:if test="${!empty listeSemaine}">
 		<table>
+		<tr>
+		<c:forEach items="${tabNomLongJour}" var="nomLongJour">
+			 <th><c:out value="${nomLongJour}"></c:out></th>
+		</c:forEach>
+		<tr>
 		<c:forEach items="${listeSemaine}" var="semaine">
 			<tr>
 			<c:forEach items="${semaine.tabJournee}" var = "journee">

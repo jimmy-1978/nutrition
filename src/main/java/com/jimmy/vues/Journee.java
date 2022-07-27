@@ -7,7 +7,6 @@ import java.util.List;
 import com.jimmy.classes.Activite;
 import com.jimmy.classes.Aliment;
 import com.jimmy.db.ActiviteDaoImpl;
-import com.jimmy.util.DateUtil;
 
 public class Journee {
 	private String nomUtilisateur;
@@ -29,8 +28,7 @@ public class Journee {
 	public List<String> vueLigne() {
 		List<String> listeLigne = new ArrayList<String>();
 		String ligne = null;
-		ligne = DateUtil.rechercherNomCourtJour(dateJournee) + "/" + dateJournee.getDayOfMonth() + "-"
-				+ dateJournee.getMonthValue() + "-" + dateJournee.getYear();
+		ligne = dateJournee.getDayOfMonth() + "-" + dateJournee.getMonthValue() + "-" + dateJournee.getYear();
 		listeLigne.add(ligne);
 
 		for (Activite activite : listeActivite) {

@@ -4,34 +4,31 @@ import java.time.LocalDate;
 
 public class DateUtil {
 
+	private static String[] tabNomCourt = { "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim" };
+	private static String[] tabNomLong = { "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" };
+
 	public static String rechercherNomCourtJour(LocalDate date) {
 
-		String nomCourt = null;
-
-		switch (date.getDayOfWeek().getValue()) {
-		case 1:
-			nomCourt = "Lun";
-			break;
-		case 2:
-			nomCourt = "Mar";
-			break;
-		case 3:
-			nomCourt = "Mer";
-			break;
-		case 4:
-			nomCourt = "Jeu";
-			break;
-		case 5:
-			nomCourt = "Ven";
-			break;
-		case 6:
-			nomCourt = "Sam";
-			break;
-		case 7:
-			nomCourt = "Dim";
-		}
-
-		return nomCourt;
+		return rechercherNomCourtJour(date.getDayOfWeek().getValue());
 
 	}
+
+	public static String rechercherNomCourtJour(int numJour) {
+
+		return tabNomCourt[numJour - 1];
+
+	}
+
+	public static String rechercherNomLongJour(LocalDate date) {
+
+		return rechercherNomLongJour(date.getDayOfWeek().getValue());
+
+	}
+
+	public static String rechercherNomLongJour(int numJour) {
+
+		return tabNomLong[numJour - 1];
+
+	}
+
 }
