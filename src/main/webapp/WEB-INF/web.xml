@@ -45,4 +45,24 @@
     <servlet-name>Deconnexion</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MoisPrecedent</display-name>
+    <servlet-name>MoisPrecedent</servlet-name>
+    <servlet-class>com.jimmy.servlets.MoisPrecedent</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MoisPrecedent</servlet-name>
+    <url-pattern>/moisPrecedent</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MoisSuivant</display-name>
+    <servlet-name>MoisSuivant</servlet-name>
+    <servlet-class>com.jimmy.servlets.MoisSuivant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MoisSuivant</servlet-name>
+    <url-pattern>/moisSuivant</url-pattern>
+  </servlet-mapping>
 </web-app>

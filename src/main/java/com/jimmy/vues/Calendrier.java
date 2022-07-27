@@ -8,33 +8,49 @@ import com.jimmy.classes.Utilisateur;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public class Calendrier {
 
 	void Calendrier() {
 	}
 
-	public void chargementDuMoisEnCours(HttpServletRequest request, Utilisateur utilisateur) {
+	public void chargementDuMoisEnCours(HttpServletRequest request) {
 
-		LocalDate dateFrom = LocalDate.now();
-		LocalDate dateTo = LocalDate.now();
-
-		// On recule jusqu'au premier du mois
-		while (dateFrom.getDayOfMonth() != 1) {
-			dateFrom = dateFrom.minusDays(1);
-		}
-
-		// On avance jusqu'au dernier du mois
-		while (dateTo.plusDays(1).getDayOfMonth() != 1) {
-			dateTo = dateTo.plusDays(1);
-		}
-
-		chargementJournees(request, utilisateur, dateFrom, dateTo);
+		chargementDuMois(request, LocalDate.now().getYear(), LocalDate.now().getMonthValue());
 
 	}
 
-	private void chargementJournees(HttpServletRequest request, Utilisateur utilisateur, LocalDate dateFrom,
-			LocalDate dateTo) {
+	public void chargementDuMoisSuivant(HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
+		int moisEnCours = (int) session.getAttribute("moisEnCours");
+
+		LocalDate date = LocalDate.of(anneeEnCours, moisEnCours, 1);
+		date = date.plusMonths(1);
+
+		chargementDuMois(request, date.getYear(), date.getMonthValue());
+
+	}
+
+	public void chargementDuMoisPrecedent(HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
+		int moisEnCours = (int) session.getAttribute("moisEnCours");
+
+		LocalDate date = LocalDate.of(anneeEnCours, moisEnCours, 1);
+		date = date.minusMonths(1);
+
+		chargementDuMois(request, date.getYear(), date.getMonthValue());
+
+	}
+
+	private void chargementDuMois(HttpServletRequest request, int annee, int mois) {
+
+		LocalDate dateFrom = LocalDate.of(annee, mois, 1); // Le premier jour du mois
+		LocalDate dateTo = dateFrom.plusMonths(1).minusDays(1); // Le dernier jour du mois
 
 		// Si besoin, on sélectionne les jours précédents afin d'avoir une semaine
 		// entière pour commencer
@@ -49,6 +65,15 @@ public class Calendrier {
 		while (dateTo.getDayOfWeek().getValue() != 7) {
 			dateTo = dateTo.plusDays(1);
 		}
+
+		chargementJournees(request, dateFrom, dateTo);
+
+	}
+
+	private void chargementJournees(HttpServletRequest request, LocalDate dateFrom, LocalDate dateTo) {
+
+		HttpSession session = request.getSession();
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
 
 		int numeroDeSemaine = 1;
 		Journee[] tabJournee = null;
@@ -67,10 +92,8 @@ public class Calendrier {
 			}
 		}
 
-		Mois mois = new Mois(DateUtil.rechercherNomLongMois(dateFrom.plusWeeks(1)), dateFrom.plusWeeks(1).getYear(),
-				listeSemaine);
-
-		request.setAttribute("mois", mois);
+		Mois mois = new Mois(dateFrom.plusWeeks(1).getMonthValue(),
+				DateUtil.rechercherNomLongMois(dateFrom.plusWeeks(1)), dateFrom.plusWeeks(1).getYear(), listeSemaine);
 
 		String[] tabNomLongJour = new String[7];
 
@@ -78,7 +101,10 @@ public class Calendrier {
 			tabNomLongJour[i] = DateUtil.rechercherNomLongJour(i + 1);
 		}
 
+		request.setAttribute("mois", mois);
 		request.setAttribute("tabNomLongJour", tabNomLongJour);
 
+		session.setAttribute("anneeEnCours", mois.getAnnee());
+		session.setAttribute("moisEnCours", mois.getNumero());
 	}
 }

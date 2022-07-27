@@ -2,7 +2,6 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.classes.Utilisateur;
 import com.jimmy.forms.ConnexionUtilisateurForm;
 import com.jimmy.vues.Calendrier;
 
@@ -47,7 +46,7 @@ public class Connexion extends HttpServlet {
 		if (connecte != null && connecte) {
 
 			Calendrier calendrier = new Calendrier();
-			calendrier.chargementDuMoisEnCours(request, (Utilisateur) session.getAttribute("utilisateur"));
+			calendrier.chargementDuMoisEnCours(request);
 
 		}
 	}

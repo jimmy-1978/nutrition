@@ -34,6 +34,22 @@
 	
 	<c:if test="${!empty mois}">
 		<h1><c:out value = "${mois.nom}"></c:out> <c:out value="${mois.annee}"></c:out></h1>
+		
+		<table>
+			<tr>
+				<td>
+					<form method="get" action="moisPrecedent">
+						<input type="submit" value=" << Mois précédent">
+					</form>
+				</td>
+				<td>
+					<form method="get" action="moisSuivant" >
+						<input type="submit" value="Mois suivant >>">
+					</form>			
+				</td>
+			</tr>
+		</table>
+		
 		<table>
 		<tr>
 		<c:forEach items="${tabNomLongJour}" var="nomLongJour">
@@ -52,6 +68,7 @@
 			</tr>
 		</c:forEach>
 		</table>
+				
 	</c:if>
 	
 </body>
