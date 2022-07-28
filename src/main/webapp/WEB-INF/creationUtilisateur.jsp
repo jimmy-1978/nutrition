@@ -16,7 +16,11 @@
 		<label for="conf_mot_de_passe">Confirmer mot de passe</label>
 		<input type="password" id="conf_mot_de_passe" name="conf_mot_de_passe_param"><br>
 		<label for="sexe">Sexe</label>	
-		<input type="text" id="sexe" name="sexe_param"><br>
+		<select id="sexe" name="sexe-param">
+			<c:forEach items="${listeGenre}" var ="genre">
+				<option>${genre}</option>
+			</c:forEach>
+		</select><br>
 		<label for="date_de_naissance">Date de naissance</label>
 		<input type="date" id="date_de_naissance" name="date_de_naissance_param"><br>		
 		<input type="submit" value="Confirmer">	
