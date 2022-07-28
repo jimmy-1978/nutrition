@@ -10,20 +10,23 @@
 	<h1>Création utilisateur</h1>
 	<form method="post" action = "creationUtilisateur">
 		<label for="nom">Nom d'utilisateur</label>
-		<input type="text" id="nom" name="nom_param"><br>
+		<input type="text" id="nom" name="nom_param" value="<c:out value="${utilisateur.nom}"></c:out>"><br>
 		<label for="mot_de_passe">Mot de passe</label>
 		<input type="password" id="mot_de_passe" name="mot_de_passe_param"><br>
 		<label for="conf_mot_de_passe">Confirmer mot de passe</label>
 		<input type="password" id="conf_mot_de_passe" name="conf_mot_de_passe_param"><br>
 		<label for="sexe">Sexe</label>	
-		<select id="sexe" name="sexe-param">
+		<select id="sexe" name="sexe_param" >
 			<c:forEach items="${listeGenre}" var ="genre">
-				<option>${genre}</option>
+				<option <c:if test="${utilisateur.sexe == genre}">selected="yes"</c:if>>${genre}</option>
 			</c:forEach>
 		</select><br>
 		<label for="date_de_naissance">Date de naissance</label>
-		<input type="date" id="date_de_naissance" name="date_de_naissance_param"><br>		
-		<input type="submit" value="Confirmer">	
+		<input type="date" id="date_de_naissance" name="date_de_naissance_param" value="${utilisateur.dateDeNaissance}"><br>		
+		<input type="submit" value="Confirmer">
 	</form>
+	<c:if test="${!empty erreurCreationUtilisateur }">
+		<p>${erreurCreationUtilisateur}</p>
+	</c:if>
 </body>
 </html>

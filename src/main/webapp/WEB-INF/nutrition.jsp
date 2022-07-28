@@ -18,9 +18,9 @@
 			<h1>Connexion</h1>
 			<form method="post" action="connexion"> <!-- Effectuera un POST sur l'URL "connexion" -->
 				<label for="nom">Nom d'utilisateur</label>
-				<input type="text" id="nom" name="nom_param" value="${utilisateur.nom}"/><br>
+				<input type="text" id="nom" name="nom_param" value="<c:out value="${utilisateur.nom}"></c:out>"/><br>
 				<label for="mot_de_passe">Mot de passe</label> 
-				<input	type="password" id="mot_de_passe" name="mot_de_passe_param" /><br>
+				<input	type="password" id="mot_de_passe" name="mot_de_passe_param" value="<c:out value="${utilisateur.motDePasse}"></c:out>" /><br>
 				<input type="submit" value="Se connecter" />
 				<c:if test="${!empty messageConnexion}"> 
 					<p><c:out value="${messageConnexion}"></c:out></p>
