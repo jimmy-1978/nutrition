@@ -30,9 +30,13 @@ public class CreationUtilisateur extends HttpServlet {
 		boolean utilisateurCree = creationUilisateurForm.creerUtilisateur(request);
 
 		if (utilisateurCree) {
+
 			request.getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
+
 		} else {
+
 			request.getRequestDispatcher("/WEB-INF/creationUtilisateur.jsp").forward(request, response);
+
 		}
 	}
 
