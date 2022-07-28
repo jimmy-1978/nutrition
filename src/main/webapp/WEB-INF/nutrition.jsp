@@ -9,12 +9,13 @@
 <body>
 	<c:choose>
 		<c:when test="${connecte}"> <!-- "connecte" = variable de session -->  
-			<p>Vous êtes connecté en tant que <c:out value="${utilisateur.nom}"></c:out></p>
+			<h1>Vous êtes connecté en tant que <c:out value="${utilisateur.nom}"></c:out></h1>
 			<form method="get" action="deconnexion">
 				<input type="submit" value="Se déconnecter">
 			</form>
 		</c:when>
 		<c:otherwise>
+			<h1>Connexion</h1>
 			<form method="post" action="connexion"> <!-- Effectuera un POST sur l'URL "connexion" -->
 				<label for="nom">Nom d'utilisateur</label>
 				<input type="text" id="nom" name="nom_param" value="${utilisateur.nom}"/><br>
@@ -25,12 +26,13 @@
 					<p><c:out value="${erreurDeConnexion}"></c:out></p> <!-- erreurDeConnexion = variable de session -->
 				</c:if>
 			</form>
+			
+			<form method="get" action="creationUtilisateur">
+				<input type="submit" value="Création utilisateur">
+			</form>
+			
 		</c:otherwise>
 	</c:choose>
-	
-	<tr>
-	<th></th>
-	</tr>
 	
 	<c:if test="${!empty mois}">
 		<h1><c:out value = "${mois.nom}"></c:out> <c:out value="${mois.annee}"></c:out></h1>
