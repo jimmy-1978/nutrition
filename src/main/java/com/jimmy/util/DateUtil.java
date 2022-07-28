@@ -44,4 +44,22 @@ public class DateUtil {
 		return tabNomLongMois[i - 1];
 	}
 
+	public static LocalDate conversionDateRequete(String dateParamRequete) {
+
+		String[] tabChaine = dateParamRequete.split("-");
+		LocalDate date = null;
+		if (tabChaine.length == 3) {
+			int annee = 0;
+			int mois = 0;
+			int jour = 0;
+
+			annee = Integer.parseInt(tabChaine[0]);
+			mois = Integer.parseInt(tabChaine[1]);
+			jour = Integer.parseInt(tabChaine[2]);
+
+			date = LocalDate.of(annee, mois, jour);
+		}
+
+		return date;
+	}
 }

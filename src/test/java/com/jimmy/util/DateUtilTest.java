@@ -72,4 +72,14 @@ class DateUtilTest {
 		assertThat(resultat).isEqualTo("Février");
 	}
 
+	@Test
+	void controleDateEnParametreDeRequeteDonneUneLocalDate() {
+
+		String dateParamRequete = "2022-06-29";
+
+		LocalDate resultat = DateUtil.conversionDateRequete(dateParamRequete);
+
+		assertThat(resultat).isEqualTo(LocalDate.of(2022, 6, 29));
+	}
+
 }
