@@ -2,7 +2,6 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.ConnexionUtilisateurForm;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.ServletException;
@@ -11,18 +10,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class Connexion extends HttpServlet {
+public class Nutrition extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public Connexion() {
+	public Nutrition() {
 		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm(request, response);
-		connexionUtilisateur.seConnecter();
 
 		chargementDonneesUtilisateurSiConnecte(request);
 
@@ -41,5 +37,4 @@ public class Connexion extends HttpServlet {
 
 		}
 	}
-
 }
