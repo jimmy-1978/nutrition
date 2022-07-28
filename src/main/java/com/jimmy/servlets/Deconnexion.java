@@ -19,8 +19,8 @@ public class Deconnexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm(request, response);
-		connexionUtilisateur.seDeconnecter();
+		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm();
+		connexionUtilisateur.seDeconnecter(request);
 
 		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 

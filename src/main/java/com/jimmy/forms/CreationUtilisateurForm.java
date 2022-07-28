@@ -16,7 +16,7 @@ public class CreationUtilisateurForm {
 		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
 		utilisateurDaoImpl.create(utilisateur);
 
-		request.getSession().setAttribute("erreurDeConnexion", "Utilisateur créé");
+		request.setAttribute("messageConnexion", "Utilisateur " + utilisateur.getNom() + " créé");
 
 		return true;
 

@@ -21,8 +21,8 @@ public class Connexion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm(request, response);
-		connexionUtilisateur.seConnecter();
+		ConnexionUtilisateurForm connexionUtilisateur = new ConnexionUtilisateurForm();
+		connexionUtilisateur.seConnecter(request);
 
 		chargementDonneesUtilisateurSiConnecte(request);
 

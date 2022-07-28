@@ -14,17 +14,11 @@ public class ConnexionUtilisateurForm {
 	private HttpServletResponse response;
 	private Utilisateur utilisateur;
 
-	public ConnexionUtilisateurForm(HttpServletRequest request, HttpServletResponse response) {
-		this.request = request;
-		this.response = response;
-	}
-
-	public void seConnecter() { // A appeler uniquement avec la méthode POST
+	public void seConnecter(HttpServletRequest request) { // A appeler uniquement avec la méthode POST
 
 		// On enlève toutes les variables de session
 
 		HttpSession session = request.getSession();
-		session.removeAttribute("erreurDeConnexion");
 		session.removeAttribute("utilisateur");
 		session.removeAttribute("connecte");
 
@@ -55,17 +49,22 @@ public class ConnexionUtilisateurForm {
 			} else {
 
 				session.setAttribute("connecte", false);
-				session.setAttribute("erreurDeConnexion", "Nom d'utilisateur et/ou mot de passe incorrect");
+				request.setAttribute("messageConnexion", "Nom d'utilisateur et/ou mot de passe incorrect");
 
 			}
 		}
 	}
 
-	public void seDeconnecter() {
+	public void seDeconnecter(HttpServletRequest request) {
+
 		HttpSession session = request.getSession();
-		session.removeAttribute("erreurDeConnexion");
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		String nom = utilisateur.getNom();
+
 		session.removeAttribute("utilisateur");
 		session.setAttribute("connecte", false);
+
+		request.setAttribute("messageConnexion", "Utilisateur " + nom + " déconnecté");
 	}
 
 	private boolean controleDonneesFormulaire() {

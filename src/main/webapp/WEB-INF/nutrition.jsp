@@ -22,8 +22,8 @@
 				<label for="mot_de_passe">Mot de passe</label> 
 				<input	type="password" id="mot_de_passe" name="mot_de_passe_param" /><br>
 				<input type="submit" value="Se connecter" />
-				<c:if test="${!empty erreurDeConnexion}"> 
-					<p><c:out value="${erreurDeConnexion}"></c:out></p> <!-- erreurDeConnexion = variable de session -->
+				<c:if test="${!empty messageConnexion}"> 
+					<p><c:out value="${messageConnexion}"></c:out></p>
 				</c:if>
 			</form>
 			
