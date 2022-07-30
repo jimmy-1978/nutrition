@@ -62,4 +62,23 @@ public class DateUtil {
 
 		return date;
 	}
+
+	public static LocalDate[] getJoursDeLaSemaine(int annee, int mois, int numeroSemaine) {
+
+		LocalDate[] tabLocalDate = new LocalDate[7];
+
+		LocalDate dateFrom = LocalDate.of(annee, mois, 1);
+
+		// On se positionne sur le lundi précédent
+		while (dateFrom.getDayOfWeek().getValue() != 1) {
+			dateFrom = dateFrom.minusDays(1);
+		}
+
+		for (int i = 0; i < 7; i++) {
+			tabLocalDate[i] = dateFrom;
+			dateFrom = dateFrom.plusDays(1);
+		}
+
+		return tabLocalDate;
+	}
 }

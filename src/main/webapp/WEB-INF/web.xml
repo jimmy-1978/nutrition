@@ -45,7 +45,7 @@
     <servlet-name>Deconnexion</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>CreationUtilisateur</display-name>
     <servlet-name>CreationUtilisateur</servlet-name>
@@ -74,5 +74,15 @@
   <servlet-mapping>
     <servlet-name>MoisSuivant</servlet-name>
     <url-pattern>/moisSuivant</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ajouter</display-name>
+    <servlet-name>Ajouter</servlet-name>
+    <servlet-class>com.jimmy.servlets.Ajouter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ajouter</servlet-name>
+    <url-pattern>/ajouter</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -13,4 +13,8 @@ public class Semaine {
 	public Journee[] getTabJournee() {
 		return tabJournee;
 	}
+
+	public int getNumero() {
+		return numero;
+	}
 }

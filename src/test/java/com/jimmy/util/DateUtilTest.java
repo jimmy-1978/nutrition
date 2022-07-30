@@ -82,4 +82,16 @@ class DateUtilTest {
 		assertThat(resultat).isEqualTo(LocalDate.of(2022, 6, 29));
 	}
 
+	@Test
+	void recupererJoursDeLASemaineAPartirDeAnneeMoisEtNumeroDeSemaine() {
+
+		LocalDate[] tabDate = { LocalDate.of(2022, 7, 25), LocalDate.of(2022, 7, 26), LocalDate.of(2022, 7, 27),
+				LocalDate.of(2022, 7, 28), LocalDate.of(2022, 7, 29), LocalDate.of(2022, 7, 30),
+				LocalDate.of(2022, 7, 31) };
+
+		LocalDate[] tabResultat = DateUtil.getJoursDeLaSemaine(2022, 7, 5);
+
+		assertThat(tabResultat).isEqualTo(tabResultat);
+	}
+
 }

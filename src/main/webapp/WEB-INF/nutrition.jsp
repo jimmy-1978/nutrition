@@ -53,20 +53,29 @@
 		</table>
 		
 		<table>
-		<tr>
+		<tr> <!--  Une ligne -->
 		<c:forEach items="${tabNomLongJour}" var="nomLongJour">
-			 <th><c:out value="${nomLongJour}"></c:out></th>
+			 <th><c:out value="${nomLongJour}"></c:out></th> <!--  Une cellule d'entête -->
 		</c:forEach>
 		<tr>
 		<c:forEach items="${mois.listeSemaine}" var="semaine">
 			<tr>
 			<c:forEach items="${semaine.tabJournee}" var = "journee">
-				<td>
+				<td> <!--  Une cellule -->
 					<c:forEach items="${journee.vueLigne()}" var="ligne">
 						<c:out value ="${ligne}"></c:out><br>
 					</c:forEach>
 				</td>
 			</c:forEach>
+			<td>
+				<form method="post" action="ajouter">
+					<label for="select_ajouter">Ajouter...</label><br>
+					<select id="select_ajouter" name="select_ajouter_semaine_${semaine.numero}_param">
+						<option>Activité</option>
+					</select><br>
+					<input type="submit" value="Ajouter">
+				</form>
+			</td>
 			</tr>
 		</c:forEach>
 		</table>
