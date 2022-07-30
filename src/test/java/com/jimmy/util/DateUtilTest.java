@@ -91,7 +91,7 @@ class DateUtilTest {
 
 		LocalDate[] tabResultat = DateUtil.getJoursDeLaSemaine(2022, 7, 5);
 
-		assertThat(tabResultat).isEqualTo(tabResultat);
+		assertThat(tabResultat).isEqualTo(tabDate);
 	}
 
 }

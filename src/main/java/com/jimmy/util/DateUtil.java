@@ -67,16 +67,21 @@ public class DateUtil {
 
 		LocalDate[] tabLocalDate = new LocalDate[7];
 
-		LocalDate dateFrom = LocalDate.of(annee, mois, 1);
+		LocalDate date = LocalDate.of(annee, mois, 1);
 
 		// On se positionne sur le lundi précédent
-		while (dateFrom.getDayOfWeek().getValue() != 1) {
-			dateFrom = dateFrom.minusDays(1);
+		while (date.getDayOfWeek().getValue() != 1) {
+			date = date.minusDays(1);
+		}
+
+		// Si besoin, on ajoute une ou plusieurs semaine(s)
+		if (numeroSemaine != 1) {
+			date = date.plusWeeks(numeroSemaine - 1);
 		}
 
 		for (int i = 0; i < 7; i++) {
-			tabLocalDate[i] = dateFrom;
-			dateFrom = dateFrom.plusDays(1);
+			tabLocalDate[i] = date;
+			date = date.plusDays(1);
 		}
 
 		return tabLocalDate;
