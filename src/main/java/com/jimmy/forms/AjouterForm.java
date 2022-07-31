@@ -1,8 +1,8 @@
 package com.jimmy.forms;
 
-import java.time.LocalDate;
 import java.util.Enumeration;
 
+import com.jimmy.enums.TypeActivite;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,9 +34,11 @@ public class AjouterForm {
 		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
 		int moisEnCours = (int) session.getAttribute("moisEnCours");
 
-		LocalDate[] joursDeLaSemaine = DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine);
+		ActiviteForm activiteForm = new ActiviteForm();
+		activiteForm.setJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
+		activiteForm.setTabTypeActivite(TypeActivite.values());
 
-		request.setAttribute("joursDeLaSemaine", joursDeLaSemaine);
+		request.getSession().setAttribute("activiteForm", activiteForm);
 
 	}
 }

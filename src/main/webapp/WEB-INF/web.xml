@@ -85,4 +85,14 @@
     <servlet-name>Ajouter</servlet-name>
     <url-pattern>/ajouter</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjouterActivite</display-name>
+    <servlet-name>AjouterActivite</servlet-name>
+    <servlet-class>com.jimmy.servlets.AjouterActivite</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjouterActivite</servlet-name>
+    <url-pattern>/ajouterActivite</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -25,6 +25,7 @@ public class Ajouter extends HttpServlet {
 		String typeAjout = (String) request.getAttribute("typeAjout");
 
 		if (typeAjout.equals("Activité")) {
+
 			request.getRequestDispatcher("/WEB-INF/ajouterActivite.jsp").forward(request, response);
 		}
 
