@@ -1,7 +1,5 @@
 package com.jimmy.forms;
 
-import com.jimmy.classes.Utilisateur;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -16,11 +14,10 @@ public class DeconnexionUtilisateurForm {
 	public void seDeconnecter() {
 
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-		String nom = utilisateur.getNom();
+		UtilisateurForm utilisateurForm = (UtilisateurForm) session.getAttribute("utilisateurForm");
+		String nom = utilisateurForm.getNom();
 
-		session.removeAttribute("utilisateur");
-		session.setAttribute("connecte", false);
+		session.removeAttribute("utilisateurForm");
 
 		request.setAttribute("messageConnexion", "Utilisateur " + nom + " déconnecté");
 	}

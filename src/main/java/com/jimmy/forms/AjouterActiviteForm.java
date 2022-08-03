@@ -3,7 +3,6 @@ package com.jimmy.forms;
 import java.time.LocalDate;
 
 import com.jimmy.classes.Activite;
-import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.ActiviteDaoImpl;
 import com.jimmy.enums.TypeActivite;
 import com.jimmy.exceptions.ExceptionControleCreationActivite;
@@ -97,8 +96,8 @@ public class AjouterActiviteForm {
 			throw new ExceptionControleCreationActivite("Veuillez saisir une valeur différente de 0");
 		}
 
-		Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
-		activite = new Activite(utilisateur.getNom(), dateActivite, typeActivite, nbCaloriesBrulees);
+		UtilisateurForm utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
+		activite = new Activite(utilisateurForm.getNom(), dateActivite, typeActivite, nbCaloriesBrulees);
 
 		return activite;
 

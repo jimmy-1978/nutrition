@@ -8,6 +8,7 @@ public class UtilisateurForm extends Utilisateur {
 
 	private List<String> listeGenre;
 	private String erreurCreation;
+	private boolean connecte;
 
 	public UtilisateurForm() {
 		super();
@@ -27,6 +28,14 @@ public class UtilisateurForm extends Utilisateur {
 
 	public String getErreurCreation() {
 		return erreurCreation;
+	}
+
+	public void setConnecte(boolean connecte) {
+		this.connecte = connecte;
+	}
+
+	public boolean getConnecte() {
+		return connecte;
 	}
 
 }

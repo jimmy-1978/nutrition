@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jimmy.classes.Utilisateur;
+import com.jimmy.forms.UtilisateurForm;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -73,7 +73,7 @@ public class Calendrier {
 	private void chargementJournees(HttpServletRequest request, LocalDate dateFrom, LocalDate dateTo) {
 
 		HttpSession session = request.getSession();
-		Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+		UtilisateurForm utilisateurForm = (UtilisateurForm) session.getAttribute("utilisateurForm");
 
 		int numeroDeSemaine = 1;
 		Journee[] tabJournee = null;
@@ -84,7 +84,7 @@ public class Calendrier {
 			if (date.getDayOfWeek().getValue() == 1) {
 				tabJournee = new Journee[7];
 			}
-			tabJournee[date.getDayOfWeek().getValue() - 1] = new Journee(utilisateur.getNom(), date);
+			tabJournee[date.getDayOfWeek().getValue() - 1] = new Journee(utilisateurForm.getNom(), date);
 
 			if (date.getDayOfWeek().getValue() == 7) {
 				listeSemaine.add(new Semaine(numeroDeSemaine, tabJournee));

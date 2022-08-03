@@ -6,32 +6,40 @@ import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class ConnexionUtilisateurForm {
 
 	private HttpServletRequest request;
-	private Utilisateur utilisateur;
+	private UtilisateurForm utilisateurForm;
 
 	public ConnexionUtilisateurForm(HttpServletRequest request) {
 		this.request = request;
+		utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
+		if (utilisateurForm == null) {
+			utilisateurForm = new UtilisateurForm();
+			request.getSession().setAttribute("utilisateurForm", utilisateurForm);
+		}
+	}
+
+	public void chargementDonneesUtilisateurSiConnecte() {
+
+		if (utilisateurForm.getConnecte()) {
+
+			Calendrier calendrier = new Calendrier();
+			calendrier.chargementDuMoisEnCours(request);
+
+		}
 	}
 
 	public void seConnecter() { // A appeler uniquement avec la méthode POST
-
-		// On enlève toutes les variables de session
-
-		HttpSession session = request.getSession();
-		session.removeAttribute("utilisateur");
-		session.removeAttribute("connecte");
 
 		// On récupère les données du formulaire
 
 		String nom = (String) request.getParameter("nom_param");
 		String motDePasse = (String) request.getParameter("mot_de_passe_param");
-		utilisateur = new Utilisateur(nom, motDePasse);
-		session.setAttribute("utilisateur", utilisateur); // Permet de ré-afficher les données sur le formulaire, même
-															// si la tentative de connexion échoue
+
+		utilisateurForm.setNom(nom);
+		utilisateurForm.setMotDePasse(motDePasse);
 
 		// On contrôle les données du formulaire
 
@@ -42,16 +50,15 @@ public class ConnexionUtilisateurForm {
 		if (controleOk) {
 
 			UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
-			utilisateur = utilisateurDaoImpl.getByNom(utilisateur.getNom());
+			Utilisateur utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
 
 			if (utilisateur != null && utilisateur.getMotDePasse().equals(motDePasse)) {
 
-				session.setAttribute("connecte", true);
-				session.setAttribute("utilisateur", utilisateur);
+				utilisateurForm.setConnecte(true);
 
 			} else {
 
-				session.setAttribute("connecte", false);
+				utilisateurForm.setConnecte(false);
 				request.setAttribute("messageConnexion", "Nom d'utilisateur et/ou mot de passe incorrect");
 
 			}
@@ -63,17 +70,5 @@ public class ConnexionUtilisateurForm {
 		System.out.println("Controles des paramètres A IMPLEMENTER et comment gérer les erreurs sur le front?");
 
 		return true;
-	}
-
-	public void chargementDonneesUtilisateurSiConnecte() {
-
-		HttpSession session = request.getSession();
-		Boolean connecte = (Boolean) session.getAttribute("connecte");
-		if (connecte != null && connecte) {
-
-			Calendrier calendrier = new Calendrier();
-			calendrier.chargementDuMoisEnCours(request);
-
-		}
 	}
 }
