@@ -10,6 +10,7 @@ public class ActiviteForm extends Activite {
 	private String nbCaloriesBruleesForm;
 	private TypeActivite[] tabTypeActivite;
 	private LocalDate[] joursDeLaSemaineForm;
+	private String erreurAjout;
 
 	public ActiviteForm() {
 		super();
@@ -37,5 +38,13 @@ public class ActiviteForm extends Activite {
 
 	public LocalDate[] getJoursDeLaSemaineForm() {
 		return joursDeLaSemaineForm;
+	}
+
+	public void setErreurAjout(String erreurAjout) {
+		this.erreurAjout = erreurAjout;
+	}
+
+	public String getErreurAjout() {
+		return erreurAjout;
 	}
 }

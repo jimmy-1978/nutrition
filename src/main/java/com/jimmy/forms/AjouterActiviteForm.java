@@ -13,17 +13,45 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 public class AjouterActiviteForm {
-	public boolean ajouter(HttpServletRequest request) {
 
-		initialiser(request);
+	private HttpServletRequest request;
+	private ActiviteForm activiteForm;
+
+	public AjouterActiviteForm(HttpServletRequest request) {
+
+		this.request = request;
+		activiteForm = initialiserActiviteForm();
+		request.setAttribute("activiteForm", activiteForm);
+	}
+
+	private ActiviteForm initialiserActiviteForm() {
+
+		// On initialise le tableau contenant les jours de la semaine concernée (dans
+		// "activiteForm")
+
+		HttpSession session = request.getSession();
+
+		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
+		int moisEnCours = (int) session.getAttribute("moisEnCours");
+		int numeroSemaine = (int) session.getAttribute("numeroSemaine");
+
+		activiteForm = new ActiviteForm();
+		activiteForm.setJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
+		activiteForm.setTabTypeActivite(TypeActivite.values());
+
+		return activiteForm;
+
+	}
+
+	public boolean ajouter() {
 
 		Activite activite = null;
 
 		try {
-			activite = controlerDonnees(request);
+			activite = controlerDonnees();
 		} catch (Exception e) {
 
-			request.setAttribute("erreurAjouterActivite", e.getMessage());
+			activiteForm.setErreurAjout(e.getMessage());
 
 			return false;
 
@@ -33,8 +61,6 @@ public class AjouterActiviteForm {
 
 			ActiviteDaoImpl activiteDaoImpl = new ActiviteDaoImpl();
 			activiteDaoImpl.create(activite);
-
-			request.getSession().removeAttribute("activiteForm");
 
 			return true;
 
@@ -46,26 +72,7 @@ public class AjouterActiviteForm {
 
 	}
 
-	public void initialiser(HttpServletRequest request) {
-
-		// On initialise le tableau contenant les jours de la semaine concernée (dans
-		// "activiteForm")
-
-		HttpSession session = request.getSession();
-
-		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
-		int moisEnCours = (int) session.getAttribute("moisEnCours");
-		int numeroSemaine = (int) session.getAttribute("numeroSemaine");
-
-		ActiviteForm activiteForm = new ActiviteForm();
-		activiteForm.setJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
-		activiteForm.setTabTypeActivite(TypeActivite.values());
-
-		request.setAttribute("activiteForm", activiteForm);
-
-	}
-
-	private Activite controlerDonnees(HttpServletRequest request) throws ExceptionControleCreationActivite {
+	private Activite controlerDonnees() throws ExceptionControleCreationActivite {
 
 		Activite activite = null;
 
@@ -73,7 +80,6 @@ public class AjouterActiviteForm {
 		TypeActivite typeActivite = TypeActivite.valueOf(request.getParameter("type_activite_param"));
 		LocalDate dateActivite = DateUtil.conversionDateRequete(request.getParameter("date_activite_param"));
 
-		ActiviteForm activiteForm = (ActiviteForm) request.getAttribute("activiteForm");
 		activiteForm.setNbCaloriesBruleesForm(nbCaloriesBruleesForm);
 		activiteForm.setTypeActivite(typeActivite);
 		activiteForm.setDateActivite(dateActivite);

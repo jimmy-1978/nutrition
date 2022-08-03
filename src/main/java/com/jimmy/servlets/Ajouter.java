@@ -21,13 +21,11 @@ public class Ajouter extends HttpServlet {
 			throws ServletException, IOException {
 
 		AjouterForm ajouterForm = new AjouterForm();
-
 		String typeAjout = ajouterForm.ajouter(request);
 
 		if (typeAjout.equals("Activité")) {
 
-			AjouterActiviteForm ajouterActiviteForm = new AjouterActiviteForm();
-			ajouterActiviteForm.initialiser(request);
+			AjouterActiviteForm ajouterActiviteForm = new AjouterActiviteForm(request);
 
 			request.getRequestDispatcher("/WEB-INF/ajouterActivite.jsp").forward(request, response);
 		}

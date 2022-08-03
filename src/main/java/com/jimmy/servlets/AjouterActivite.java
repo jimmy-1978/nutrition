@@ -21,8 +21,8 @@ public class AjouterActivite extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		AjouterActiviteForm ajouterActiviteForm = new AjouterActiviteForm();
-		boolean creationOk = ajouterActiviteForm.ajouter(request);
+		AjouterActiviteForm ajouterActiviteForm = new AjouterActiviteForm(request);
+		boolean creationOk = ajouterActiviteForm.ajouter();
 
 		if (creationOk) {
 			chargementDonneesUtilisateurSiConnecte(request);
