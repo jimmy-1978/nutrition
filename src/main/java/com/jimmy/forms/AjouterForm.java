@@ -2,15 +2,13 @@ package com.jimmy.forms;
 
 import java.util.Enumeration;
 
-import com.jimmy.enums.TypeActivite;
-import com.jimmy.util.DateUtil;
-
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class AjouterForm {
 
-	public void ajouter(HttpServletRequest request) {
+	public String ajouter(HttpServletRequest request) {
+
+		// On détermine sur quelle semaine on est (1, 2, 3, etc.) sur la jsp
 
 		Enumeration<String> enumParametreNom = request.getParameterNames();
 		int numeroSemaine = 0;
@@ -20,25 +18,18 @@ public class AjouterForm {
 		while (enumParametreNom.hasMoreElements()) {
 			parametre = enumParametreNom.nextElement();
 			if (parametre.contains("select_ajouter_semaine")) {
-				typeAjout = request.getParameter(parametre);
+				typeAjout = request.getParameter(parametre); // "Activité", etc.
 				String chiffreSemaine = String.valueOf(parametre.charAt(23)); // On récupère le numéro de la semaine
-																				// concernée
 				numeroSemaine = Integer.valueOf(chiffreSemaine);
 			}
 		}
 
-		request.setAttribute("typeAjout", typeAjout);
+		// Au sauvegarde en session car sur le formulaire de saisie suivant on ne sait
+		// plus sur quelle semaine on est..
 
-		HttpSession session = request.getSession();
+		request.getSession().setAttribute("numeroSemaine", numeroSemaine);
 
-		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
-		int moisEnCours = (int) session.getAttribute("moisEnCours");
-
-		ActiviteForm activiteForm = new ActiviteForm();
-		activiteForm.setJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
-		activiteForm.setTabTypeActivite(TypeActivite.values());
-
-		request.getSession().setAttribute("activiteForm", activiteForm);
+		return typeAjout;
 
 	}
 }

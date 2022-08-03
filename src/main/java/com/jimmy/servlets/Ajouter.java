@@ -2,6 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
+import com.jimmy.forms.AjouterActiviteForm;
 import com.jimmy.forms.AjouterForm;
 
 import jakarta.servlet.ServletException;
@@ -20,11 +21,13 @@ public class Ajouter extends HttpServlet {
 			throws ServletException, IOException {
 
 		AjouterForm ajouterForm = new AjouterForm();
-		ajouterForm.ajouter(request);
 
-		String typeAjout = (String) request.getAttribute("typeAjout");
+		String typeAjout = ajouterForm.ajouter(request);
 
 		if (typeAjout.equals("Activité")) {
+
+			AjouterActiviteForm ajouterActiviteForm = new AjouterActiviteForm();
+			ajouterActiviteForm.initialiser(request);
 
 			request.getRequestDispatcher("/WEB-INF/ajouterActivite.jsp").forward(request, response);
 		}
