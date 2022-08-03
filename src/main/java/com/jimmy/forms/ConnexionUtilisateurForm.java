@@ -3,6 +3,7 @@ package com.jimmy.forms;
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDao;
 import com.jimmy.db.UtilisateurDaoImpl;
+import com.jimmy.exceptions.ControleConnexionUtilisateurException;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,9 +32,35 @@ public class ConnexionUtilisateurForm {
 		}
 	}
 
-	public void seConnecter() { // A appeler uniquement avec la méthode POST
+	public boolean seConnecter() { // A appeler uniquement avec la méthode POST
 
-		// On récupère les données du formulaire
+		Utilisateur utilisateur = null;
+
+		try {
+			utilisateur = controleDonneesFormulaire();
+		} catch (Exception e) {
+			request.setAttribute("messageConnexion", e.getMessage());
+
+			return false;
+
+		}
+
+		if (utilisateur != null) {
+			utilisateurForm.setConnecte(true);
+
+			return true;
+
+		} else {
+			utilisateurForm.setConnecte(false);
+
+			return false;
+
+		}
+	}
+
+	private Utilisateur controleDonneesFormulaire() throws ControleConnexionUtilisateurException {
+
+		Utilisateur utilisateur = null;
 
 		String nom = (String) request.getParameter("nom_param");
 		String motDePasse = (String) request.getParameter("mot_de_passe_param");
@@ -41,34 +68,20 @@ public class ConnexionUtilisateurForm {
 		utilisateurForm.setNom(nom);
 		utilisateurForm.setMotDePasse(motDePasse);
 
-		// On contrôle les données du formulaire
-
-		boolean controleOk = controleDonneesFormulaire();
-
-		// Contrôle de l'existence de l'utilisateur en DB + bon mot de passe
-
-		if (controleOk) {
-
-			UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
-			Utilisateur utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
-
-			if (utilisateur != null && utilisateur.getMotDePasse().equals(motDePasse)) {
-
-				utilisateurForm.setConnecte(true);
-
-			} else {
-
-				utilisateurForm.setConnecte(false);
-				request.setAttribute("messageConnexion", "Nom d'utilisateur et/ou mot de passe incorrect");
-
-			}
+		if (nom.isBlank()) {
+			throw new ControleConnexionUtilisateurException("Nom obligatoire");
 		}
-	}
 
-	private boolean controleDonneesFormulaire() {
+		if (motDePasse.isBlank()) {
+			throw new ControleConnexionUtilisateurException("Mot de passe obligatoire");
+		}
 
-		System.out.println("Controles des paramètres A IMPLEMENTER et comment gérer les erreurs sur le front?");
+		UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
+		utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
+		if (utilisateur == null || !utilisateur.getMotDePasse().equals(motDePasse)) {
+			throw new ControleConnexionUtilisateurException("Nom et/ou mot de passe erroné");
+		}
 
-		return true;
+		return utilisateur;
 	}
 }
