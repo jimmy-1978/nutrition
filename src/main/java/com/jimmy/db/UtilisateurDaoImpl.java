@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 import com.jimmy.classes.Utilisateur;
+import com.jimmy.exceptions.UtilisateurDaoException;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
 
@@ -19,7 +20,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public Utilisateur getById(int id) {
+	public Utilisateur getById(int id) throws UtilisateurDaoException {
 
 		String sql = """
 				SELECT nom, mot_de_passe, date_de_naissance
@@ -43,13 +44,14 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new UtilisateurDaoException(e.getMessage());
 		}
 
 		return null;
 	}
 
 	@Override
-	public Utilisateur getByNom(String nom) {
+	public Utilisateur getByNom(String nom) throws UtilisateurDaoException {
 
 		String sql = """
 				SELECT id, mot_de_passe, date_de_naissance
@@ -74,6 +76,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new UtilisateurDaoException(e.getMessage());
 		}
 
 		return null;
@@ -81,7 +84,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	}
 
 	@Override
-	public int create(Utilisateur utilisateur) {
+	public int create(Utilisateur utilisateur) throws UtilisateurDaoException {
 		try {
 			int id = rechercherId();
 			String sql = """
@@ -104,13 +107,12 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new UtilisateurDaoException(e.getMessage());
 		}
-
-		return 0;
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws UtilisateurDaoException {
 		String sql = """
 				DELETE FROM utilisateur
 				WHERE id = ?
@@ -124,11 +126,12 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			preparedStatement.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new UtilisateurDaoException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void createTable() {
+	public void createTable() throws UtilisateurDaoException {
 
 		String sql = """
 				CREATE TABLE utilisateur (
@@ -147,18 +150,12 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			stmt.execute(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new UtilisateurDaoException(e.getMessage());
 		}
-
-		try {
-			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
-	public void deleteTable() {
+	public void deleteTable() throws UtilisateurDaoException {
 		String sql = "DROP TABLE utilisateur";
 		ouvrirConnexion();
 
@@ -168,32 +165,32 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 			stmt.execute(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new UtilisateurDaoException(e.getMessage());
 		}
-
-		try {
-			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	private int rechercherId() throws Exception {
 
 		String sql = """
-				SELECT MAX(id) 
+				SELECT MAX(id)
 				FROM utilisateur
 				""";
 		ouvrirConnexion();
-
-		Statement stmt = connexion.createStatement();
-		ResultSet result = stmt.executeQuery(sql);
 		int id = 0;
-		while (result.next()) {
-			id = result.getInt(1) + 1; // Même si null, ça donne bien id 1 au final
-		}
 
-		return id;
+		try {
+			Statement stmt = connexion.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+
+			while (result.next()) {
+				id = result.getInt(1) + 1; // Même si null, ça donne bien id 1 au final
+			}
+
+			return id;
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 
 	}
 

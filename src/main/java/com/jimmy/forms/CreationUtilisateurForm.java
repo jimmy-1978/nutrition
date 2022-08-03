@@ -47,7 +47,16 @@ public class CreationUtilisateurForm {
 		}
 
 		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
-		utilisateurDaoImpl.create(utilisateur);
+		try {
+			utilisateurDaoImpl.create(utilisateur);
+		} catch (Exception e) {
+
+			utilisateurForm.setErreurCreation(
+					"Erreur DB lors de la tentative de création de l'utilisateur " + utilisateur.getNom());
+
+			return false;
+
+		}
 
 		request.setAttribute("messageConnexion", "Utilisateur " + utilisateur.getNom() + " créé");
 
@@ -71,17 +80,10 @@ public class CreationUtilisateurForm {
 		utilisateurForm.setSexe(sexe);
 		utilisateurForm.setDateDeNaissance(dateDeNaissance);
 
-		// Contrôles nom
 		if (nom.trim().equals("")) {
 			throw new ControleCreationUtilisateurException("Le nom est obligatoire");
 		}
 
-		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
-		if (utilisateurDaoImpl.getByNom(nom) != null) {
-			throw new ControleCreationUtilisateurException("L'utilisateur existe déjà");
-		}
-
-		// Contrôles mot de passe
 		if (motDePasse.trim().equals("")) {
 			throw new ControleCreationUtilisateurException("Le mot de passe est obligatoire");
 		}
@@ -90,9 +92,20 @@ public class CreationUtilisateurForm {
 			throw new ControleCreationUtilisateurException("Les deux mots de passe saisis ne correspondent pas");
 		}
 
-		// Contrôle date de naissance
 		if (dateDeNaissance == null) {
 			throw new ControleCreationUtilisateurException("La date de naissance est obligatoire");
+		}
+
+		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
+
+		try {
+			utilisateur = utilisateurDaoImpl.getByNom(nom);
+		} catch (Exception e) {
+			throw new ControleCreationUtilisateurException("Erreur technique accès DB");
+		}
+
+		if (utilisateur != null) {
+			throw new ControleCreationUtilisateurException("L'utilisateur existe déjà");
 		}
 
 		utilisateur = new Utilisateur(nom, motDePasse, sexe, dateDeNaissance);

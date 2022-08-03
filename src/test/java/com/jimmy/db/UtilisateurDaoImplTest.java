@@ -2,6 +2,7 @@ package com.jimmy.db;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.AfterEach;
@@ -29,7 +30,11 @@ class UtilisateurDaoImplTest {
 	@Disabled
 	void controleDeleteTable() {
 
-		utilisateurDaoImpl.deleteTable();
+		try {
+			utilisateurDaoImpl.deleteTable();
+		} catch (Exception e) {
+
+		}
 
 	}
 
@@ -37,58 +42,86 @@ class UtilisateurDaoImplTest {
 	@Disabled
 	void controleCreateTable() {
 
-		utilisateurDaoImpl.createTable();
+		try {
+			utilisateurDaoImpl.createTable();
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	@Test
 	void accesAUnUtilisateurparSonId() {
 
-		Object[] tabParam = { "toto", "1234", LocalDate.now() };
+		Object[] tabParam = { "toto-" + Instant.now().toEpochMilli(), "1234", LocalDate.now() };
 		Object[] tabResultat = new Object[3];
 		Utilisateur utilisateur = new Utilisateur((String) tabParam[0], (String) tabParam[1], (LocalDate) tabParam[2]);
-		int id = utilisateurDaoImpl.create(utilisateur);
+		int id = 0;
+		try {
+			id = utilisateurDaoImpl.create(utilisateur);
+			utilisateur = utilisateurDaoImpl.getById(id);
 
-		utilisateur = utilisateurDaoImpl.getById(id);
+			tabResultat[0] = utilisateur.getNom();
+			tabResultat[1] = utilisateur.getMotDePasse();
+			tabResultat[2] = utilisateur.getDateDeNaissance();
 
-		tabResultat[0] = utilisateur.getNom();
-		tabResultat[1] = utilisateur.getMotDePasse();
-		tabResultat[2] = utilisateur.getDateDeNaissance();
+		} catch (Exception e) {
 
+		}
 		assertThat(tabResultat).isEqualTo(tabParam);
 
-		utilisateurDaoImpl.delete(id);
+		try {
+			utilisateurDaoImpl.delete(id);
+		} catch (Exception e) {
+
+		}
 
 	}
 
 	@Test
 	void accesAUnUtilisateurParSonNom() {
 
-		Object[] tabParam = { "toto", "1234", LocalDate.now() };
+		Object[] tabParam = { "toto-" + Instant.now().toEpochMilli(), "1234", LocalDate.now() };
 		Object[] tabResultat = new Object[3];
 
 		Utilisateur utilisateur = new Utilisateur((String) tabParam[0], (String) tabParam[1], (LocalDate) tabParam[2]);
-		utilisateurDaoImpl.create(utilisateur);
 
-		utilisateur = utilisateurDaoImpl.getByNom((String) tabParam[0]);
+		try {
+			utilisateurDaoImpl.create(utilisateur);
 
-		tabResultat[0] = utilisateur.getNom();
-		tabResultat[1] = utilisateur.getMotDePasse();
-		tabResultat[2] = utilisateur.getDateDeNaissance();
+			utilisateur = utilisateurDaoImpl.getByNom((String) tabParam[0]);
+
+			tabResultat[0] = utilisateur.getNom();
+			tabResultat[1] = utilisateur.getMotDePasse();
+			tabResultat[2] = utilisateur.getDateDeNaissance();
+		} catch (Exception e) {
+
+		}
 
 		assertThat(tabResultat).isEqualTo(tabParam);
 
-		utilisateurDaoImpl.delete(utilisateur.getId());
+		try {
+			utilisateurDaoImpl.delete(utilisateur.getId());
+		} catch (Exception e) {
+
+		}
 
 	}
 
 	@Test
 	void deleteDUnUtilisateur() {
 
-		Utilisateur utilisateur = new Utilisateur("toto", "1234", LocalDate.now());
-		int resultat = utilisateurDaoImpl.create(utilisateur);
+		Utilisateur utilisateur = new Utilisateur("toto-" + Instant.now().toEpochMilli(), "1234", LocalDate.now());
 
-		utilisateurDaoImpl.delete(resultat);
-		utilisateur = utilisateurDaoImpl.getById(resultat);
+		try {
+			int resultat = utilisateurDaoImpl.create(utilisateur);
+
+			utilisateurDaoImpl.delete(resultat);
+			utilisateur = utilisateurDaoImpl.getById(resultat);
+
+		} catch (Exception e) {
+
+		}
 
 		assertThat(utilisateur).isNull();
 
@@ -97,12 +130,20 @@ class UtilisateurDaoImplTest {
 	@Test
 	void creationDUnUtilisateur() {
 
-		Utilisateur utilisateur = new Utilisateur("toto", "1234", LocalDate.now());
-		int resultat = utilisateurDaoImpl.create(utilisateur);
+		Utilisateur utilisateur = new Utilisateur("toto-" + Instant.now().toEpochMilli(), "1234", LocalDate.now());
+		int resultat = 0;
+		try {
+			resultat = utilisateurDaoImpl.create(utilisateur);
+		} catch (Exception e) {
+
+		}
 
 		assertThat(resultat).isGreaterThanOrEqualTo(1);
 
-		utilisateurDaoImpl.delete(resultat);
+		try {
+			utilisateurDaoImpl.delete(resultat);
+		} catch (Exception e) {
 
+		}
 	}
 }

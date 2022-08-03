@@ -77,7 +77,13 @@ public class ConnexionUtilisateurForm {
 		}
 
 		UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
-		utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
+		try {
+			utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
+		} catch (Exception e) {
+
+			throw new ControleConnexionUtilisateurException("Erreur technique accès DB");
+		}
+
 		if (utilisateur == null || !utilisateur.getMotDePasse().equals(motDePasse)) {
 			throw new ControleConnexionUtilisateurException("Nom et/ou mot de passe erroné");
 		}
