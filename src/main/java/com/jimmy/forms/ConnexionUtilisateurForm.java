@@ -25,8 +25,8 @@ public class ConnexionUtilisateurForm {
 
 		if (utilisateurForm.getConnecte()) {
 
-			Calendrier calendrier = new Calendrier();
-			calendrier.chargementDuMoisEnCours(request);
+			Calendrier calendrier = new Calendrier(request);
+			calendrier.chargementDuMoisEnCours();
 
 		}
 	}

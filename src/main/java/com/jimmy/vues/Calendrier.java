@@ -12,16 +12,26 @@ import jakarta.servlet.http.HttpSession;
 
 public class Calendrier {
 
-	void Calendrier() {
+	private HttpServletRequest request;
+
+	public Calendrier(HttpServletRequest request) {
+		this.request = request;
 	}
 
-	public void chargementDuMoisEnCours(HttpServletRequest request) {
+	public void chargementDuMoisEnCours() {
 
-		chargementDuMois(request, LocalDate.now().getYear(), LocalDate.now().getMonthValue());
+		HttpSession session = request.getSession();
+		Integer anneeEnCours = (Integer) session.getAttribute("anneeEnCours");
+		Integer moisEnCours = (Integer) session.getAttribute("moisEnCours");
 
+		if (anneeEnCours != null && moisEnCours != null) {
+			chargementDuMois(anneeEnCours, moisEnCours);
+		} else {
+			chargementDuMois(LocalDate.now().getYear(), LocalDate.now().getMonthValue());
+		}
 	}
 
-	public void chargementDuMoisSuivant(HttpServletRequest request) {
+	public void chargementDuMoisSuivant() {
 
 		HttpSession session = request.getSession();
 		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
@@ -30,11 +40,11 @@ public class Calendrier {
 		LocalDate date = LocalDate.of(anneeEnCours, moisEnCours, 1);
 		date = date.plusMonths(1);
 
-		chargementDuMois(request, date.getYear(), date.getMonthValue());
+		chargementDuMois(date.getYear(), date.getMonthValue());
 
 	}
 
-	public void chargementDuMoisPrecedent(HttpServletRequest request) {
+	public void chargementDuMoisPrecedent() {
 
 		HttpSession session = request.getSession();
 		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
@@ -43,11 +53,11 @@ public class Calendrier {
 		LocalDate date = LocalDate.of(anneeEnCours, moisEnCours, 1);
 		date = date.minusMonths(1);
 
-		chargementDuMois(request, date.getYear(), date.getMonthValue());
+		chargementDuMois(date.getYear(), date.getMonthValue());
 
 	}
 
-	private void chargementDuMois(HttpServletRequest request, int annee, int mois) {
+	private void chargementDuMois(int annee, int mois) {
 
 		LocalDate dateFrom = LocalDate.of(annee, mois, 1); // Le premier jour du mois
 		LocalDate dateTo = dateFrom.plusMonths(1).minusDays(1); // Le dernier jour du mois
@@ -66,11 +76,11 @@ public class Calendrier {
 			dateTo = dateTo.plusDays(1);
 		}
 
-		chargementJournees(request, dateFrom, dateTo);
+		chargementJournees(dateFrom, dateTo);
 
 	}
 
-	private void chargementJournees(HttpServletRequest request, LocalDate dateFrom, LocalDate dateTo) {
+	private void chargementJournees(LocalDate dateFrom, LocalDate dateTo) {
 
 		HttpSession session = request.getSession();
 		UtilisateurForm utilisateurForm = (UtilisateurForm) session.getAttribute("utilisateurForm");

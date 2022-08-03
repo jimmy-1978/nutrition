@@ -19,8 +19,8 @@ public class MoisPrecedent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Calendrier calendrier = new Calendrier();
-		calendrier.chargementDuMoisPrecedent(request);
+		Calendrier calendrier = new Calendrier(request);
+		calendrier.chargementDuMoisPrecedent();
 
 		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 	}
