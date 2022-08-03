@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.jimmy.classes.Activite;
 import com.jimmy.db.ActiviteDaoImpl;
 import com.jimmy.enums.TypeActivite;
-import com.jimmy.exceptions.ExceptionControleCreationActivite;
+import com.jimmy.exceptions.ControleCreationActiviteException;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -71,7 +71,7 @@ public class AjouterActiviteForm {
 
 	}
 
-	private Activite controlerDonnees() throws ExceptionControleCreationActivite {
+	private Activite controlerDonnees() throws ControleCreationActiviteException {
 
 		Activite activite = null;
 
@@ -89,11 +89,11 @@ public class AjouterActiviteForm {
 			nbCaloriesBrulees = Integer.parseUnsignedInt(nbCaloriesBruleesForm);
 		} catch (NumberFormatException e) {
 
-			throw new ExceptionControleCreationActivite("Veuillez saisir une valeur numérique, entière et positive");
+			throw new ControleCreationActiviteException("Veuillez saisir une valeur numérique, entière et positive");
 		}
 
 		if (nbCaloriesBrulees == 0) {
-			throw new ExceptionControleCreationActivite("Veuillez saisir une valeur différente de 0");
+			throw new ControleCreationActiviteException("Veuillez saisir une valeur différente de 0");
 		}
 
 		UtilisateurForm utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");

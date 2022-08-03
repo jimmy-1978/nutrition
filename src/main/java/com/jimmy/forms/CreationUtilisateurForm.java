@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDaoImpl;
-import com.jimmy.exceptions.ExceptionControleCreationUtilisateur;
+import com.jimmy.exceptions.ControleCreationUtilisateurException;
 import com.jimmy.listes.Liste;
 import com.jimmy.util.DateUtil;
 
@@ -38,7 +38,7 @@ public class CreationUtilisateurForm {
 
 		try {
 			utilisateur = controleDonneesFormulaire();
-		} catch (ExceptionControleCreationUtilisateur e) {
+		} catch (ControleCreationUtilisateurException e) {
 
 			utilisateurForm.setErreurCreation(e.getMessage());
 
@@ -55,7 +55,7 @@ public class CreationUtilisateurForm {
 
 	}
 
-	private Utilisateur controleDonneesFormulaire() throws ExceptionControleCreationUtilisateur {
+	private Utilisateur controleDonneesFormulaire() throws ControleCreationUtilisateurException {
 
 		Utilisateur utilisateur = null;
 
@@ -73,26 +73,26 @@ public class CreationUtilisateurForm {
 
 		// Contrôles nom
 		if (nom.trim().equals("")) {
-			throw new ExceptionControleCreationUtilisateur("Le nom est obligatoire");
+			throw new ControleCreationUtilisateurException("Le nom est obligatoire");
 		}
 
 		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
 		if (utilisateurDaoImpl.getByNom(nom) != null) {
-			throw new ExceptionControleCreationUtilisateur("L'utilisateur existe déjà");
+			throw new ControleCreationUtilisateurException("L'utilisateur existe déjà");
 		}
 
 		// Contrôles mot de passe
 		if (motDePasse.trim().equals("")) {
-			throw new ExceptionControleCreationUtilisateur("Le mot de passe est obligatoire");
+			throw new ControleCreationUtilisateurException("Le mot de passe est obligatoire");
 		}
 
 		if (!motDePasse.equals(confMotDePasse)) {
-			throw new ExceptionControleCreationUtilisateur("Les deux mots de passe saisis ne correspondent pas");
+			throw new ControleCreationUtilisateurException("Les deux mots de passe saisis ne correspondent pas");
 		}
 
 		// Contrôle date de naissance
 		if (dateDeNaissance == null) {
-			throw new ExceptionControleCreationUtilisateur("La date de naissance est obligatoire");
+			throw new ControleCreationUtilisateurException("La date de naissance est obligatoire");
 		}
 
 		utilisateur = new Utilisateur(nom, motDePasse, sexe, dateDeNaissance);
