@@ -5,20 +5,42 @@ import java.time.LocalDate;
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.exceptions.ExceptionControleCreationUtilisateur;
+import com.jimmy.listes.Liste;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 public class CreationUtilisateurForm {
 
-	public boolean creerUtilisateur(HttpServletRequest request) {
+	private HttpServletRequest request;
+	private UtilisateurForm utilisateurForm;
+
+	public CreationUtilisateurForm(HttpServletRequest request) {
+
+		this.request = request;
+		utilisateurForm = initialiserUtilisateurForm();
+		request.setAttribute("utilisateurForm", utilisateurForm);
+	}
+
+	private UtilisateurForm initialiserUtilisateurForm() {
+
+		UtilisateurForm utilisateurForm = new UtilisateurForm();
+
+		utilisateurForm.setListeGenre(Liste.getListeGenre());
+
+		return utilisateurForm;
+
+	}
+
+	public boolean creerUtilisateur() {
 
 		Utilisateur utilisateur = null;
 
 		try {
-			utilisateur = controleDonneesFormulaire(request);
+			utilisateur = controleDonneesFormulaire();
 		} catch (ExceptionControleCreationUtilisateur e) {
-			request.setAttribute("erreurCreationUtilisateur", e.getMessage());
+
+			utilisateurForm.setErreurCreation(e.getMessage());
 
 			return false;
 
@@ -33,8 +55,7 @@ public class CreationUtilisateurForm {
 
 	}
 
-	private Utilisateur controleDonneesFormulaire(HttpServletRequest request)
-			throws ExceptionControleCreationUtilisateur {
+	private Utilisateur controleDonneesFormulaire() throws ExceptionControleCreationUtilisateur {
 
 		Utilisateur utilisateur = null;
 
@@ -45,10 +66,10 @@ public class CreationUtilisateurForm {
 		String dateParam = request.getParameter("date_de_naissance_param"); // Ex. : 2022-06-29
 		LocalDate dateDeNaissance = DateUtil.conversionDateRequete(dateParam);
 
-		utilisateur = new Utilisateur(nom, motDePasse, sexe, dateDeNaissance);
-
-		request.setAttribute("utilisateur", utilisateur); // Afin de pouvoir ré-initialiser les champs du formulaire
-															// avec les valeurs déjà saisies
+		utilisateurForm.setNom(nom);
+		utilisateurForm.setMotDePasse(motDePasse);
+		utilisateurForm.setSexe(sexe);
+		utilisateurForm.setDateDeNaissance(dateDeNaissance);
 
 		// Contrôles nom
 		if (nom.trim().equals("")) {
@@ -73,6 +94,8 @@ public class CreationUtilisateurForm {
 		if (dateDeNaissance == null) {
 			throw new ExceptionControleCreationUtilisateur("La date de naissance est obligatoire");
 		}
+
+		utilisateur = new Utilisateur(nom, motDePasse, sexe, dateDeNaissance);
 
 		return utilisateur;
 

@@ -10,6 +10,10 @@ public class Utilisateur {
 	private String sexe;
 	private LocalDate dateDeNaissance;
 
+	public Utilisateur() {
+
+	}
+
 	public Utilisateur(String nom, String motDePasse) {
 		this.nom = nom;
 		this.motDePasse = motDePasse;
@@ -32,21 +36,41 @@ public class Utilisateur {
 		this.id = id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public int getId() {
 
 		return id;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public String getNom() {
 		return nom;
 	}
 
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
 	public String getMotDePasse() {
 		return motDePasse;
 	}
 
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
 	public String getSexe() {
 		return sexe;
+	}
+
+	public void setDateDeNaissance(LocalDate dateDeNaissance) {
+		this.dateDeNaissance = dateDeNaissance;
 	}
 
 	public LocalDate getDateDeNaissance() {
