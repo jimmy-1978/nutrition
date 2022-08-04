@@ -10,7 +10,7 @@
 	<form method="post" action="ajouterActivite">
 		<label for="nb_calories">Nombre de calories brûlées</label>
 		<input type="text" id="nb_calories" name="nb_calories_param" value="${activiteForm.nbCaloriesBruleesForm}"><br>
-		<lable for="type_activite">Type d'activite</lable>
+		<label for="type_activite">Type d'activite</label>
 		<select id="type_activite" name="type_activite_param">
 			<c:forEach items="${activiteForm.tabTypeActivite}" var="typeActivite">
 				<option <c:if test="${activiteForm.typeActivite == typeActivite}">selected="yes"</c:if>>${typeActivite}</option>
