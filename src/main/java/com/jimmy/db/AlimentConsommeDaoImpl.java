@@ -148,6 +148,60 @@ public class AlimentConsommeDaoImpl implements AlimentConsommeDao {
 	}
 
 	@Override
+	public List<AlimentConsomme> getByIdUtilisateurAndBetweenDateFromAndDateTo(int idUtilisateur, LocalDate dateFrom,
+			LocalDate dateTo) throws AlimentConsommeDaoException {
+
+		List<AlimentConsomme> listeAlimentConsomme = null;
+
+		String sql = """
+				SELECT id, id_aliment, id_utilisateur, date_consommation, quantite
+				FROM aliment_consomme
+				WHERE id_utilisateur = ? AND date_consommation >= ? AND date_consommation <= ?
+				""";
+		ouvrirConnexion();
+		try {
+			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+			preparedStatement.setInt(1, idUtilisateur);
+			Date dateSql = Date.valueOf(dateFrom);
+			preparedStatement.setDate(2, dateSql);
+			dateSql = Date.valueOf(dateTo);
+			preparedStatement.setDate(3, dateSql);
+
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				if (listeAlimentConsomme == null) {
+					listeAlimentConsomme = new ArrayList<AlimentConsomme>();
+				}
+
+				int id = result.getInt("id");
+				int id_aliment = result.getInt("id_aliment");
+				int id_utilisateur = result.getInt("id_utilisateur");
+				dateSql = result.getDate("date_consommation");
+				LocalDate date = dateSql.toLocalDate();
+				int quantite = result.getInt("quantite");
+
+				AlimentConsomme alimentConsomme = new AlimentConsomme();
+				alimentConsomme.setIdAlimentConsomme(id);
+				alimentConsomme.setId(id_aliment);
+				alimentConsomme.setIdUtilisateur(id_utilisateur);
+				alimentConsomme.setDate(date);
+				alimentConsomme.setQuantite(quantite);
+
+				listeAlimentConsomme.add(alimentConsomme);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new AlimentConsommeDaoException(e.getMessage());
+
+		}
+
+		return listeAlimentConsomme;
+
+	}
+
+	@Override
 	public int create(AlimentConsomme alimentConsomme) throws AlimentConsommeDaoException {
 		try {
 			int id = rechercherId();
