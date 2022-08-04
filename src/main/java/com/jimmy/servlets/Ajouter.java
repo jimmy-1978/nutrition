@@ -3,6 +3,7 @@ package com.jimmy.servlets;
 import java.io.IOException;
 
 import com.jimmy.forms.AjouterActiviteForm;
+import com.jimmy.forms.AjouterAlimentConsommeForm;
 import com.jimmy.forms.AjouterForm;
 
 import jakarta.servlet.ServletException;
@@ -23,13 +24,22 @@ public class Ajouter extends HttpServlet {
 		AjouterForm ajouterForm = new AjouterForm();
 		String typeAjout = ajouterForm.ajouter(request);
 
-		if (typeAjout.equals("Activité")) {
+		switch (typeAjout) {
+
+		case "Activité":
 
 			AjouterActiviteForm ajouterActiviteForm = new AjouterActiviteForm(request);
-
 			request.getRequestDispatcher("/WEB-INF/ajouterActivite.jsp").forward(request, response);
+
+			break;
+
+		case "AlimentConsomme":
+
+			AjouterAlimentConsommeForm ajouterAlimentConsommeForm = new AjouterAlimentConsommeForm(request);
+			request.getRequestDispatcher("/WEB-INF/ajouterAlimentConsomme.jsp").forward(request, response);
+
+			break;
+
 		}
-
 	}
-
 }

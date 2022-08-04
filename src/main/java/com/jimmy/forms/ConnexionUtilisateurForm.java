@@ -4,6 +4,7 @@ import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDao;
 import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.exceptions.ControleConnexionUtilisateurException;
+import com.jimmy.listes.Liste;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,8 @@ public class ConnexionUtilisateurForm {
 
 			Calendrier calendrier = new Calendrier(request);
 			calendrier.chargementDuMoisEnCours();
+
+			request.setAttribute("listeTypeAjout", Liste.getListeTypeAjout());
 
 		}
 	}

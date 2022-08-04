@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.jimmy.classes.Aliment;
 import com.jimmy.enums.UniteDeMesure;
@@ -59,6 +61,43 @@ public class AlimentDaoImpl implements AlimentDao {
 	}
 
 	@Override
+	public List<Aliment> getAll() throws AlimentDaoException {
+
+		List<Aliment> listeAliment = null;
+
+		String sql = """
+				SELECT id, nom, kcal_par_unite_de_mesure, unite_de_mesure
+				FROM aliment
+				""";
+		ouvrirConnexion();
+		try {
+			Statement stmt = connexion.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while (result.next()) {
+				if (listeAliment == null) {
+					listeAliment = new ArrayList<Aliment>();
+				}
+
+				int id = result.getInt("id");
+				String nom = result.getString("nom");
+				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
+				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
+
+				listeAliment.add(new Aliment(id, nom, kCalParUniteDeMesure, uniteDeMesure));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			throw new AlimentDaoException(e.getMessage());
+
+		}
+
+		return listeAliment;
+
+	}
+
+	@Override
 	public Aliment getById(int id) throws AlimentDaoException {
 
 		String sql = """
@@ -74,6 +113,36 @@ public class AlimentDaoImpl implements AlimentDao {
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
 				String nom = result.getString("nom");
+				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
+				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
+
+				return new Aliment(id, nom, kCalParUniteDeMesure, uniteDeMesure);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AlimentDaoException(e.getMessage());
+		}
+
+		return null;
+	}
+
+	@Override
+	public Aliment getByNom(String nom) throws AlimentDaoException {
+
+		String sql = """
+				SELECT id, kcal_par_unite_de_mesure, unite_de_mesure
+				FROM aliment
+				WHERE nom = ?
+				""";
+		ouvrirConnexion();
+
+		try {
+			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+			preparedStatement.setString(1, nom);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				int id = result.getInt("id");
 				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
@@ -164,5 +233,4 @@ public class AlimentDaoImpl implements AlimentDao {
 	private void ouvrirConnexion() {
 		connexion = connexionDB.ouvrirConnexion();
 	}
-
 }

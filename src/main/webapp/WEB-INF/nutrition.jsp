@@ -71,16 +71,16 @@
 				<form method="post" action="ajouter">
 					<label for="select_ajouter">Ajouter...</label><br>
 					<select id="select_ajouter" name="select_ajouter_semaine_${semaine.numero}_param">
-						<option>Activité</option>
+						<c:forEach items="${listeTypeAjout}" var="typeAjout">
+							<option>${typeAjout}</option>
+						</c:forEach>
 					</select><br>
 					<input type="submit" value="Ajouter">
 				</form>
 			</td>
 			</tr>
 		</c:forEach>
-		</table>
-				
+		</table>			
 	</c:if>
-	
 </body>
 </html>

@@ -13,9 +13,22 @@ public class Liste {
 		listeGenre.add("N/A");
 	}
 
+	private static List<String> listeTypeAjout;
+	static {
+		listeTypeAjout = new ArrayList<String>();
+		listeTypeAjout.add("Activité");
+		listeTypeAjout.add("AlimentConsomme");
+	}
+
 	public static List<String> getListeGenre() {
 
 		return listeGenre;
+
+	}
+
+	public static List<String> getListeTypeAjout() {
+
+		return listeTypeAjout;
 
 	}
 }

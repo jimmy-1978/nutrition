@@ -95,4 +95,14 @@
     <servlet-name>AjouterActivite</servlet-name>
     <url-pattern>/ajouterActivite</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AjouterAlimentConsomme</display-name>
+    <servlet-name>AjouterAlimentConsomme</servlet-name>
+    <servlet-class>com.jimmy.servlets.AjouterAlimentConsomme</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjouterAlimentConsomme</servlet-name>
+    <url-pattern>/ajouterAlimentConsomme</url-pattern>
+  </servlet-mapping>
 </web-app>

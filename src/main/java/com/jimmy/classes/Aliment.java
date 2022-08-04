@@ -9,6 +9,10 @@ public class Aliment {
 	private float kCalParUniteDeMesure;
 	private UniteDeMesure uniteDeMesure;
 
+	public Aliment() {
+
+	}
+
 	public Aliment(String nom, float kCalParUniteDeMesure, UniteDeMesure uniteDeMesure) {
 		setNom(nom);
 		setKCalParUniteDeMesure(kCalParUniteDeMesure);
