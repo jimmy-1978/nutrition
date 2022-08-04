@@ -80,11 +80,11 @@ public class CreationUtilisateurForm {
 		utilisateurForm.setSexe(sexe);
 		utilisateurForm.setDateDeNaissance(dateDeNaissance);
 
-		if (nom.trim().equals("")) {
+		if (nom.isBlank()) {
 			throw new ControleCreationUtilisateurException("Le nom est obligatoire");
 		}
 
-		if (motDePasse.trim().equals("")) {
+		if (motDePasse.isBlank()) {
 			throw new ControleCreationUtilisateurException("Le mot de passe est obligatoire");
 		}
 
