@@ -22,19 +22,21 @@ public class AjouterAlimentConsommeForm {
 	private AlimentConsommeForm alimentConsommeForm;
 	TypeAliment filtreListeAliment;
 
-	public AjouterAlimentConsommeForm(HttpServletRequest request, boolean filtrer) {
+	public AjouterAlimentConsommeForm(HttpServletRequest request, boolean filtreMaj) {
 
 		this.request = request;
 
-		if (filtrer) {
+		if (filtreMaj) { // Soit on vient de modifier le filtre
 			filtreListeAliment = TypeAliment.valueOf(request.getParameter("filtre_param"));
 			request.getSession().setAttribute("filtreListeAlimentConsomme", filtreListeAliment.toString());
 		} else {
 			String filtre = (String) request.getSession().getAttribute("filtreListeAlimentConsomme");
-			if (filtre != null) {
+			if (filtre != null) { // Soit il est déjà en session
 				filtreListeAliment = TypeAliment.valueOf(filtre);
 			} else {
-				filtreListeAliment = null;
+				TypeAliment[] tabTypeAliment = TypeAliment.values();
+				filtreListeAliment = tabTypeAliment[0]; // Soit on prend le filtre par défaut (1er du tableau)
+				request.getSession().setAttribute("filtreListeAlimentConsomme", filtreListeAliment.toString());
 			}
 		}
 

@@ -11,11 +11,11 @@
 	<form method="post" action="filtrerListeAlimentConsomme">
 		<fieldset>
 			<legend>Sélectionnez un filtre pour limiter la liste des aliments</legend>
-			<c:forEach items="${alimentConsommeForm.tabTypeAliment}" var="type_aliment" varStatus="status">
+			<c:forEach items="${alimentConsommeForm.tabTypeAliment}" var="type_aliment">
 				<input type="radio" id="${type_aliment}" 
 					name="filtre_param" 
 					value="${type_aliment}"
-					<c:if test="${status.count == 1}">checked</c:if>>
+					<c:if test="${type_aliment == filtreListeAlimentConsomme}">checked</c:if>>
 				<label for="${type_aliment}">${type_aliment.libelle}</label>			
 			</c:forEach>
 	    	<br><button type="submit">Màj</button>
@@ -42,5 +42,6 @@
 			<p>${alimentConsommeForm.erreurAjout}</p>
 		</c:if>	
 	</form>	
+	
 </body>
 </html>
