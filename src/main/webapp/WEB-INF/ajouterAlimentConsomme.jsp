@@ -9,14 +9,17 @@
 	<h1>Ajouter un aliment consommé</h1>
 	
 	<form method="post" action="filtrerListeAlimentConsomme">
-	  <p>Type d'aliment :</p> <!-- name identique permet de ne sélectionner que l'un ou l'autre -->
-	    <label for="liquide">Liquide</label>
-	    <input type="radio" id="liquide" name="filtre_param" value="liquide">
-	    
-	    <label for="solide">Solide</label>	
-	    <input type="radio" id="solide" name="filtre_param" value="solide">
-
-	    <button type="submit">Maj</button>
+		<fieldset>
+			<legend>Sélectionnez un filtre pour limiter la liste des aliments</legend>
+			<c:forEach items="${alimentConsommeForm.tabTypeAliment}" var="type_aliment" varStatus="status">
+				<input type="radio" id="${type_aliment}" 
+					name="filtre_param" 
+					value="${type_aliment}"
+					<c:if test="${status.count == 1}">checked</c:if>>
+				<label for="${type_aliment}">${type_aliment.libelle}</label>			
+			</c:forEach>
+	    	<br><button type="submit">Màj</button>
+		</fieldset>
 	</form>
 	
 	<form method="post" action="ajouterAlimentConsomme">

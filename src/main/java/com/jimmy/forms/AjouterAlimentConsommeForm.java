@@ -54,6 +54,9 @@ public class AjouterAlimentConsommeForm {
 		int numeroSemaine = (int) session.getAttribute("numeroSemaine");
 
 		alimentConsommeForm = new AlimentConsommeForm();
+
+		alimentConsommeForm.setTabTypeAliment(TypeAliment.values());
+
 		alimentConsommeForm
 				.setTabJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
 		AlimentDaoImpl alimentDaoImpl = new AlimentDaoImpl();
