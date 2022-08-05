@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jimmy.classes.Aliment;
+import com.jimmy.enums.TypeAliment;
 import com.jimmy.enums.UniteDeMesure;
 import com.jimmy.exceptions.AlimentDaoException;
 
@@ -26,6 +27,7 @@ public class AlimentDaoImpl implements AlimentDao {
 		String sql = """
 				CREATE TABLE aliment (
 				  id INT NOT NULL,
+				  type VARCHAR(30) NOT NULL,
 				  nom VARCHAR(30) NOT NULL,
 				  kcal_par_unite_de_mesure FLOAT NOT NULL,
 				  unite_de_mesure VARCHAR(10) NOT NULL,
@@ -66,7 +68,7 @@ public class AlimentDaoImpl implements AlimentDao {
 		List<Aliment> listeAliment = null;
 
 		String sql = """
-				SELECT id, nom, kcal_par_unite_de_mesure, unite_de_mesure
+				SELECT id, type, nom, kcal_par_unite_de_mesure, unite_de_mesure
 				FROM aliment
 				""";
 		ouvrirConnexion();
@@ -79,11 +81,12 @@ public class AlimentDaoImpl implements AlimentDao {
 				}
 
 				int id = result.getInt("id");
+				TypeAliment typeAliment = TypeAliment.valueOf(result.getString("type"));
 				String nom = result.getString("nom");
 				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
-				listeAliment.add(new Aliment(id, nom, kCalParUniteDeMesure, uniteDeMesure));
+				listeAliment.add(new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure));
 
 			}
 		} catch (Exception e) {
@@ -101,7 +104,7 @@ public class AlimentDaoImpl implements AlimentDao {
 	public Aliment getById(int id) throws AlimentDaoException {
 
 		String sql = """
-				SELECT nom, kcal_par_unite_de_mesure, unite_de_mesure
+				SELECT type, nom, kcal_par_unite_de_mesure, unite_de_mesure
 				FROM aliment
 				WHERE id = ?
 				""";
@@ -112,11 +115,12 @@ public class AlimentDaoImpl implements AlimentDao {
 			preparedStatement.setInt(1, id);
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
+				TypeAliment typeAliment = TypeAliment.valueOf(result.getString("type"));
 				String nom = result.getString("nom");
 				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
-				return new Aliment(id, nom, kCalParUniteDeMesure, uniteDeMesure);
+				return new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure);
 
 			}
 		} catch (Exception e) {
@@ -131,7 +135,7 @@ public class AlimentDaoImpl implements AlimentDao {
 	public Aliment getByNom(String nom) throws AlimentDaoException {
 
 		String sql = """
-				SELECT id, kcal_par_unite_de_mesure, unite_de_mesure
+				SELECT id, type, kcal_par_unite_de_mesure, unite_de_mesure
 				FROM aliment
 				WHERE nom = ?
 				""";
@@ -143,10 +147,11 @@ public class AlimentDaoImpl implements AlimentDao {
 			ResultSet result = preparedStatement.executeQuery();
 			while (result.next()) {
 				int id = result.getInt("id");
+				TypeAliment typeAliment = TypeAliment.valueOf(result.getString("type"));
 				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
-				return new Aliment(id, nom, kCalParUniteDeMesure, uniteDeMesure);
+				return new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure);
 
 			}
 		} catch (Exception e) {
@@ -163,17 +168,18 @@ public class AlimentDaoImpl implements AlimentDao {
 			int id = rechercherId();
 			String sql = """
 					INSERT INTO aliment
-					(id, nom, kcal_par_unite_de_mesure, unite_de_mesure)
-					VALUES ( ? , ? , ? , ? )
+					(id, type, nom, kcal_par_unite_de_mesure, unite_de_mesure)
+					VALUES ( ? , ? , ? , ? , ? )
 					""";
 			ouvrirConnexion();
 
 			PreparedStatement preparedStatement = connexion.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
-			preparedStatement.setString(2, aliment.getNom());
-			preparedStatement.setFloat(3, aliment.getKCalParUniteDeMesure());
+			preparedStatement.setString(2, aliment.getTypeAliment().toString());
+			preparedStatement.setString(3, aliment.getNom());
+			preparedStatement.setFloat(4, aliment.getKCalParUniteDeMesure());
 			UniteDeMesure uniteDeMesure = aliment.getUniteDeMesure();
-			preparedStatement.setString(4, uniteDeMesure.toString());
+			preparedStatement.setString(5, uniteDeMesure.toString());
 
 			preparedStatement.execute();
 

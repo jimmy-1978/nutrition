@@ -7,6 +7,18 @@
 </head>
 <body>
 	<h1>Ajouter un aliment consommé</h1>
+	
+	<form method="post" action="filtrerListeAlimentConsomme">
+	  <p>Type d'aliment :</p> <!-- name identique permet de ne sélectionner que l'un ou l'autre -->
+	    <label for="liquide">Liquide</label>
+	    <input type="radio" id="liquide" name="filtre_param" value="liquide">
+	    
+	    <label for="solide">Solide</label>	
+	    <input type="radio" id="solide" name="filtre_param" value="solide">
+
+	    <button type="submit">Maj</button>
+	</form>
+	
 	<form method="post" action="ajouterAlimentConsomme">
 		<label for="nom_aliment">Nom de l'aliment</label>
 		<select id="nom_aliment" name="nom_aliment_param">
@@ -26,6 +38,6 @@
 		<c:if test="${!empty alimentConsommeForm.erreurAjout}">
 			<p>${alimentConsommeForm.erreurAjout}</p>
 		</c:if>	
-	</form>
+	</form>	
 </body>
 </html>

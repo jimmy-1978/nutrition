@@ -9,6 +9,7 @@ import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.AlimentConsommeDaoImpl;
 import com.jimmy.db.AlimentDaoImpl;
 import com.jimmy.db.UtilisateurDaoImpl;
+import com.jimmy.enums.TypeAliment;
 import com.jimmy.exceptions.ControleCreationAlimentConsommeException;
 import com.jimmy.util.DateUtil;
 
@@ -19,10 +20,24 @@ public class AjouterAlimentConsommeForm {
 
 	private HttpServletRequest request;
 	private AlimentConsommeForm alimentConsommeForm;
+	TypeAliment filtreListeAliment;
 
-	public AjouterAlimentConsommeForm(HttpServletRequest request) {
+	public AjouterAlimentConsommeForm(HttpServletRequest request, boolean filtrer) {
 
 		this.request = request;
+
+		if (filtrer) {
+			filtreListeAliment = TypeAliment.valueOf(request.getParameter("filtre_param"));
+			request.getSession().setAttribute("filtreListeAlimentConsomme", filtreListeAliment.toString());
+		} else {
+			String filtre = (String) request.getSession().getAttribute("filtreListeAlimentConsomme");
+			if (filtre != null) {
+				filtreListeAliment = TypeAliment.valueOf(filtre);
+			} else {
+				filtreListeAliment = null;
+			}
+		}
+
 		alimentConsommeForm = initialiserAlimentConsommeForm();
 		request.setAttribute("alimentConsommeForm", alimentConsommeForm);
 	}
@@ -42,13 +57,19 @@ public class AjouterAlimentConsommeForm {
 		alimentConsommeForm
 				.setTabJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
 		AlimentDaoImpl alimentDaoImpl = new AlimentDaoImpl();
+
 		try {
 			List<Aliment> listeAliment = alimentDaoImpl.getAll();
 			for (Aliment aliment : listeAliment) {
-				alimentConsommeForm.ajoutAlimentDansListeNomAliment(aliment.getNom());
+				if (filtreListeAliment == null
+						|| (filtreListeAliment != null && aliment.getTypeAliment().equals(filtreListeAliment))) {
+					alimentConsommeForm.ajoutAlimentDansListeNomAliment(aliment.getNom());
+				}
 			}
 
 		} catch (Exception e) {
+
+			alimentConsommeForm.setErreurAjout(e.getMessage());
 
 		}
 		return alimentConsommeForm;

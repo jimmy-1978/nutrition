@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.jimmy.classes.Aliment;
+import com.jimmy.enums.TypeAliment;
 import com.jimmy.enums.UniteDeMesure;
 
 class AlimentDaoImplTest {
@@ -53,18 +54,20 @@ class AlimentDaoImplTest {
 	@Test
 	void accesAUnAlimentparSonId() {
 
-		Object[] tabParam = { "poire-" + Instant.now().toEpochMilli(), Float.valueOf("1.12345"),
-				UniteDeMesure.valueOf("gramme") };
-		Object[] tabResultat = new Object[3];
-		Aliment aliment = new Aliment((String) tabParam[0], (float) tabParam[1], (UniteDeMesure) tabParam[2]);
+		Object[] tabParam = { TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(),
+				Float.valueOf("1.12345"), UniteDeMesure.valueOf("gramme") };
+		Object[] tabResultat = new Object[4];
+		Aliment aliment = new Aliment((TypeAliment) tabParam[0], (String) tabParam[1], (float) tabParam[2],
+				(UniteDeMesure) tabParam[3]);
 		int id = 0;
 		try {
 			id = alimentDaoImpl.create(aliment);
 			aliment = alimentDaoImpl.getById(id);
 
-			tabResultat[0] = aliment.getNom();
-			tabResultat[1] = aliment.getKCalParUniteDeMesure();
-			tabResultat[2] = aliment.getUniteDeMesure();
+			tabResultat[0] = aliment.getTypeAliment();
+			tabResultat[1] = aliment.getNom();
+			tabResultat[2] = aliment.getKCalParUniteDeMesure();
+			tabResultat[3] = aliment.getUniteDeMesure();
 
 		} catch (Exception e) {
 
@@ -113,8 +116,8 @@ class AlimentDaoImplTest {
 	@Test
 	void deleteDUnAliment() {
 
-		Aliment aliment = new Aliment("poire-" + Instant.now().toEpochMilli(), Float.valueOf("1.12345"),
-				UniteDeMesure.valueOf("gramme"));
+		Aliment aliment = new Aliment(TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(),
+				Float.valueOf("1.12345"), UniteDeMesure.valueOf("gramme"));
 
 		try {
 			int resultat = alimentDaoImpl.create(aliment);
@@ -133,8 +136,8 @@ class AlimentDaoImplTest {
 	@Test
 	void creationDUnAliment() {
 
-		Aliment aliment = new Aliment("poire-" + Instant.now().toEpochMilli(), Float.valueOf("1.12345"),
-				UniteDeMesure.valueOf("gramme"));
+		Aliment aliment = new Aliment(TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(),
+				Float.valueOf("1.12345"), UniteDeMesure.valueOf("gramme"));
 		int resultat = 0;
 		try {
 			resultat = alimentDaoImpl.create(aliment);

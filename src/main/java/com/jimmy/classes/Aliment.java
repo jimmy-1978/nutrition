@@ -1,10 +1,12 @@
 package com.jimmy.classes;
 
+import com.jimmy.enums.TypeAliment;
 import com.jimmy.enums.UniteDeMesure;
 
 public class Aliment {
 
-	int id;
+	private int id;
+	private TypeAliment typeAliment;
 	private String nom;
 	private float kCalParUniteDeMesure;
 	private UniteDeMesure uniteDeMesure;
@@ -13,17 +15,17 @@ public class Aliment {
 
 	}
 
-	public Aliment(String nom, float kCalParUniteDeMesure, UniteDeMesure uniteDeMesure) {
+	public Aliment(TypeAliment typeAliment, String nom, float kCalParUniteDeMesure, UniteDeMesure uniteDeMesure) {
+		setTypeAliment(typeAliment);
 		setNom(nom);
 		setKCalParUniteDeMesure(kCalParUniteDeMesure);
 		setUniteDeMesure(uniteDeMesure);
 	}
 
-	public Aliment(int id, String nom, float kCalParUniteDeMesure, UniteDeMesure uniteDeMesure) {
+	public Aliment(int id, TypeAliment typeAliment, String nom, float kCalParUniteDeMesure,
+			UniteDeMesure uniteDeMesure) {
+		this(typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure);
 		setId(id);
-		setNom(nom);
-		setKCalParUniteDeMesure(kCalParUniteDeMesure);
-		setUniteDeMesure(uniteDeMesure);
 	}
 
 	public void setId(int id) {
@@ -34,12 +36,20 @@ public class Aliment {
 		return id;
 	}
 
+	public void setTypeAliment(TypeAliment typeAliment) {
+		this.typeAliment = typeAliment;
+	}
+
+	public TypeAliment getTypeAliment() {
+		return typeAliment;
+	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
 	public String getNom() {
-		return this.nom;
+		return nom;
 	}
 
 	public void setKCalParUniteDeMesure(float kCalParUniteDeMesure) {

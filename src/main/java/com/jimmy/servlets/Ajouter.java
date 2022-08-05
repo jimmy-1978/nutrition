@@ -35,7 +35,7 @@ public class Ajouter extends HttpServlet {
 
 		case "AlimentConsomme":
 
-			AjouterAlimentConsommeForm ajouterAlimentConsommeForm = new AjouterAlimentConsommeForm(request);
+			AjouterAlimentConsommeForm ajouterAlimentConsommeForm = new AjouterAlimentConsommeForm(request, false);
 			request.getRequestDispatcher("/WEB-INF/ajouterAlimentConsomme.jsp").forward(request, response);
 
 			break;

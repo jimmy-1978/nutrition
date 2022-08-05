@@ -20,7 +20,7 @@ public class AjouterAlimentConsomme extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		AjouterAlimentConsommeForm ajouterAlimentConsommeForm = new AjouterAlimentConsommeForm(request);
+		AjouterAlimentConsommeForm ajouterAlimentConsommeForm = new AjouterAlimentConsommeForm(request, false);
 
 		boolean creationOk = ajouterAlimentConsommeForm.ajouter();
 		if (creationOk) {
