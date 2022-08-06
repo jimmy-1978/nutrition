@@ -1,10 +1,11 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
 
 import com.jimmy.classes.Aliment;
 import com.jimmy.db.AlimentDaoImpl;
 import com.jimmy.enums.TypeAliment;
 import com.jimmy.enums.UniteDeMesure;
 import com.jimmy.exceptions.ControleCreationAlimentException;
+import com.jimmy.forms.classes.AlimentForm;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

@@ -1,4 +1,6 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
+
+import com.jimmy.forms.classes.UtilisateurForm;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

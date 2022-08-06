@@ -2,10 +2,10 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.AjouterActiviteForm;
-import com.jimmy.forms.AjouterAlimentConsommeForm;
-import com.jimmy.forms.AjouterForm;
-import com.jimmy.forms.CreerAlimentForm;
+import com.jimmy.forms.actions.AjouterActiviteForm;
+import com.jimmy.forms.actions.AjouterAlimentConsommeForm;
+import com.jimmy.forms.actions.AjouterForm;
+import com.jimmy.forms.actions.CreerAlimentForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

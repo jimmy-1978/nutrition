@@ -2,7 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.DeconnexionUtilisateurForm;
+import com.jimmy.forms.actions.DeconnexionUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

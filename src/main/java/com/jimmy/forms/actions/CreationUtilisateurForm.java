@@ -1,10 +1,11 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
 
 import java.time.LocalDate;
 
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.exceptions.ControleCreationUtilisateurException;
+import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
 import com.jimmy.util.DateUtil;
 

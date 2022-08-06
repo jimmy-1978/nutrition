@@ -1,4 +1,4 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +11,8 @@ import com.jimmy.db.AlimentDaoImpl;
 import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.enums.TypeAliment;
 import com.jimmy.exceptions.ControleCreationAlimentConsommeException;
+import com.jimmy.forms.classes.AlimentConsommeForm;
+import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;

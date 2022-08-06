@@ -2,8 +2,8 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.AjouterActiviteForm;
-import com.jimmy.forms.ConnexionUtilisateurForm;
+import com.jimmy.forms.actions.AjouterActiviteForm;
+import com.jimmy.forms.actions.ConnexionUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

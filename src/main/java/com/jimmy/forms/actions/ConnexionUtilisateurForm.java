@@ -1,9 +1,10 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
 
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDao;
 import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.exceptions.ControleConnexionUtilisateurException;
+import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
 import com.jimmy.vues.Calendrier;
 

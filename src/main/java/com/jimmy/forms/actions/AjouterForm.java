@@ -1,4 +1,4 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
 
 import java.util.Enumeration;
 

@@ -1,4 +1,4 @@
-package com.jimmy.forms;
+package com.jimmy.forms.actions;
 
 import java.time.LocalDate;
 
@@ -6,6 +6,8 @@ import com.jimmy.classes.Activite;
 import com.jimmy.db.ActiviteDaoImpl;
 import com.jimmy.enums.TypeActivite;
 import com.jimmy.exceptions.ControleCreationActiviteException;
+import com.jimmy.forms.classes.ActiviteForm;
+import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;

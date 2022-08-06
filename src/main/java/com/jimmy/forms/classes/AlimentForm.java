@@ -1,4 +1,4 @@
-package com.jimmy.forms;
+package com.jimmy.forms.classes;
 
 import com.jimmy.classes.Aliment;
 import com.jimmy.enums.TypeAliment;
