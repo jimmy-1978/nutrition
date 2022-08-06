@@ -10,7 +10,7 @@ import com.jimmy.db.AlimentConsommeDaoImpl;
 import com.jimmy.db.AlimentDaoImpl;
 import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.enums.TypeAliment;
-import com.jimmy.exceptions.CreerAlimentConsommeControleException;
+import com.jimmy.exceptions.AjouterAlimentConsommeFormControleException;
 import com.jimmy.forms.classes.AlimentConsommeForm;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.util.DateUtil;
@@ -119,7 +119,7 @@ public class AjouterAlimentConsommeForm {
 
 	}
 
-	private AlimentConsomme controlerDonnees() throws CreerAlimentConsommeControleException {
+	private AlimentConsomme controlerDonnees() throws AjouterAlimentConsommeFormControleException {
 
 		AlimentConsomme alimentConsomme = null;
 
@@ -135,11 +135,11 @@ public class AjouterAlimentConsommeForm {
 		try {
 			quantite = Integer.valueOf(quantiteForm);
 		} catch (Exception e) {
-			throw new CreerAlimentConsommeControleException("Veuillez saisir un nombre entier");
+			throw new AjouterAlimentConsommeFormControleException("Veuillez saisir un nombre entier");
 		}
 
 		if (quantite == 0) {
-			throw new CreerAlimentConsommeControleException("Veuillez saisir un nombre entier différent de zéro");
+			throw new AjouterAlimentConsommeFormControleException("Veuillez saisir un nombre entier différent de zéro");
 		}
 
 		UtilisateurForm utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
@@ -149,14 +149,14 @@ public class AjouterAlimentConsommeForm {
 			utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
 		} catch (Exception e) {
 
-			throw new CreerAlimentConsommeControleException(
+			throw new AjouterAlimentConsommeFormControleException(
 					"Erreur DB recherche utilisateur " + utilisateurForm.getNom());
 
 		}
 
 		if (utilisateur == null) {
 
-			throw new CreerAlimentConsommeControleException(
+			throw new AjouterAlimentConsommeFormControleException(
 					"Utilisateur " + utilisateurForm.getNom() + " inexistant en DB");
 		}
 
@@ -166,13 +166,13 @@ public class AjouterAlimentConsommeForm {
 			aliment = alimentDaoImpl.getByNom(nomAliment);
 		} catch (Exception e) {
 
-			throw new CreerAlimentConsommeControleException("Erreur DB recherche aliment " + nomAliment);
+			throw new AjouterAlimentConsommeFormControleException("Erreur DB recherche aliment " + nomAliment);
 
 		}
 
 		if (aliment == null) {
 
-			throw new CreerAlimentConsommeControleException("Aliment " + nomAliment + " inexistant en DB");
+			throw new AjouterAlimentConsommeFormControleException("Aliment " + nomAliment + " inexistant en DB");
 		}
 
 		alimentConsomme = new AlimentConsomme();

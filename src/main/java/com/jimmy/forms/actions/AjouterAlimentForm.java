@@ -4,18 +4,18 @@ import com.jimmy.classes.Aliment;
 import com.jimmy.db.AlimentDaoImpl;
 import com.jimmy.enums.TypeAliment;
 import com.jimmy.enums.UniteDeMesure;
-import com.jimmy.exceptions.CreerAlimentControleException;
+import com.jimmy.exceptions.AjouterAlimentFormControleException;
 import com.jimmy.forms.classes.AlimentForm;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class CreerAlimentForm {
+public class AjouterAlimentForm {
 
 	private HttpServletRequest request;
 	private AlimentForm alimentForm;
 
-	public CreerAlimentForm(HttpServletRequest request) {
+	public AjouterAlimentForm(HttpServletRequest request) {
 
 		this.request = request;
 
@@ -72,7 +72,7 @@ public class CreerAlimentForm {
 		}
 	}
 
-	private Aliment controlerDonnees() throws CreerAlimentControleException {
+	private Aliment controlerDonnees() throws AjouterAlimentFormControleException {
 
 		Aliment aliment = null;
 
@@ -87,18 +87,18 @@ public class CreerAlimentForm {
 		alimentForm.setUniteDeMesure(uniteDeMesure);
 
 		if (nom.isEmpty()) {
-			throw new CreerAlimentControleException("Veuillez saisir un nom");
+			throw new AjouterAlimentFormControleException("Veuillez saisir un nom");
 		}
 
 		AlimentDaoImpl alimentDaoImpl = new AlimentDaoImpl();
 		try {
 			aliment = alimentDaoImpl.getByNom(nom);
 		} catch (Exception e) {
-			throw new CreerAlimentControleException("Erreur DB recherche aliment " + nom);
+			throw new AjouterAlimentFormControleException("Erreur DB recherche aliment " + nom);
 		}
 
 		if (aliment != null) {
-			throw new CreerAlimentControleException("Aliment " + nom + " existe déjà");
+			throw new AjouterAlimentFormControleException("Aliment " + nom + " existe déjà");
 		}
 
 		int nbKCal;
@@ -107,11 +107,11 @@ public class CreerAlimentForm {
 			nbKCal = Integer.parseUnsignedInt(kCal);
 		} catch (NumberFormatException e) {
 
-			throw new CreerAlimentControleException("Veuillez saisir une valeur numérique, entière et positive");
+			throw new AjouterAlimentFormControleException("Veuillez saisir une valeur numérique, entière et positive");
 		}
 
 		if (nbKCal == 0) {
-			throw new CreerAlimentControleException("Veuillez saisir une valeur différente de 0");
+			throw new AjouterAlimentFormControleException("Veuillez saisir une valeur différente de 0");
 		}
 
 		aliment = new Aliment(typeAliment, nom, nbKCal, uniteDeMesure);

@@ -3,7 +3,7 @@ package com.jimmy.servlets;
 import java.io.IOException;
 
 import com.jimmy.forms.actions.ConnecterUtilisateurForm;
-import com.jimmy.forms.actions.CreerAlimentForm;
+import com.jimmy.forms.actions.AjouterAlimentForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ public class CreerAliment extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CreerAlimentForm creerAlimentForm = new CreerAlimentForm(request);
+		AjouterAlimentForm creerAlimentForm = new AjouterAlimentForm(request);
 		boolean creationOk = creerAlimentForm.ajouter();
 
 		if (creationOk) {

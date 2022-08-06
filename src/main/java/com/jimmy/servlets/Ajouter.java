@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.jimmy.forms.actions.AjouterActiviteForm;
 import com.jimmy.forms.actions.AjouterAlimentConsommeForm;
 import com.jimmy.forms.actions.AjouterForm;
-import com.jimmy.forms.actions.CreerAlimentForm;
+import com.jimmy.forms.actions.AjouterAlimentForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -26,7 +26,7 @@ public class Ajouter extends HttpServlet {
 		// - soit passer un paramètre
 		// - soit créer des servlets dédiées
 
-		CreerAlimentForm creerAlimentForm = new CreerAlimentForm(request);
+		AjouterAlimentForm creerAlimentForm = new AjouterAlimentForm(request);
 
 		request.getRequestDispatcher("/WEB-INF/creerAliment.jsp").forward(request, response);
 	}

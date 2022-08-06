@@ -3,7 +3,7 @@ package com.jimmy.forms.actions;
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDao;
 import com.jimmy.db.UtilisateurDaoImpl;
-import com.jimmy.exceptions.ConnecterUtilisateurControleException;
+import com.jimmy.exceptions.ConnecterUtilisateurFormControleException;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
 import com.jimmy.vues.Calendrier;
@@ -62,7 +62,7 @@ public class ConnecterUtilisateurForm {
 		}
 	}
 
-	private Utilisateur controleDonneesFormulaire() throws ConnecterUtilisateurControleException {
+	private Utilisateur controleDonneesFormulaire() throws ConnecterUtilisateurFormControleException {
 
 		Utilisateur utilisateur = null;
 
@@ -73,11 +73,11 @@ public class ConnecterUtilisateurForm {
 		utilisateurForm.setMotDePasse(motDePasse);
 
 		if (nom.isBlank()) {
-			throw new ConnecterUtilisateurControleException("Nom obligatoire");
+			throw new ConnecterUtilisateurFormControleException("Nom obligatoire");
 		}
 
 		if (motDePasse.isBlank()) {
-			throw new ConnecterUtilisateurControleException("Mot de passe obligatoire");
+			throw new ConnecterUtilisateurFormControleException("Mot de passe obligatoire");
 		}
 
 		UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
@@ -85,11 +85,11 @@ public class ConnecterUtilisateurForm {
 			utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
 		} catch (Exception e) {
 
-			throw new ConnecterUtilisateurControleException("Erreur technique accès DB");
+			throw new ConnecterUtilisateurFormControleException("Erreur technique accès DB");
 		}
 
 		if (utilisateur == null || !utilisateur.getMotDePasse().equals(motDePasse)) {
-			throw new ConnecterUtilisateurControleException("Nom et/ou mot de passe erroné");
+			throw new ConnecterUtilisateurFormControleException("Nom et/ou mot de passe erroné");
 		}
 
 		return utilisateur;

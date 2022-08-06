@@ -2,7 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.actions.CreerUtilisateurForm;
+import com.jimmy.forms.actions.AjouterUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class CreationUtilisateur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CreerUtilisateurForm creationUtilisateurForm = new CreerUtilisateurForm(request);
+		AjouterUtilisateurForm creationUtilisateurForm = new AjouterUtilisateurForm(request);
 
 		request.getRequestDispatcher("/WEB-INF/creationUtilisateur.jsp").forward(request, response);
 
@@ -28,7 +28,7 @@ public class CreationUtilisateur extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		CreerUtilisateurForm creationUtilisateurForm = new CreerUtilisateurForm(request);
+		AjouterUtilisateurForm creationUtilisateurForm = new AjouterUtilisateurForm(request);
 		boolean utilisateurCree = creationUtilisateurForm.creerUtilisateur();
 
 		if (utilisateurCree) {
