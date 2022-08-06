@@ -8,29 +8,45 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${utilisateurForm.connecte}">   
-			<h1>Vous êtes connecté en tant que <c:out value="${utilisateurForm.nom}"></c:out></h1>
-			<form method="get" action="deconnexion">
-				<input type="submit" value="Se déconnecter">
-			</form>
+		<c:when test="${utilisateurForm.connecte}">
+			<fieldset>
+				<legend>Vous êtes connecté en tant que <c:out value="${utilisateurForm.nom}"></c:out></legend>
+				
+				<form method="get" action="deconnexion">
+					<input type="submit" value="Se déconnecter">
+				</form>
+				
+			</fieldset>
+
 		</c:when>
 		<c:otherwise>
-			<h1>Connexion</h1>
-			<form method="post" action="connexion"> <!-- Effectuera un POST sur l'URL "connexion" -->
-				<label for="nom">Nom d'utilisateur</label>
-				<input type="text" id="nom" name="nom_param" value="<c:out value="${utilisateurForm.nom}"></c:out>"/><br>
-				<label for="mot_de_passe">Mot de passe</label> 
-				<input	type="password" id="mot_de_passe" name="mot_de_passe_param" value="<c:out value="${utilisateurForm.motDePasse}"></c:out>" /><br>
-				<input type="submit" value="Se connecter" />
-				<c:if test="${!empty messageConnexion}"> 
-					<p><c:out value="${messageConnexion}"></c:out></p>
-				</c:if>
-			</form>
+		
+			<fieldset>
+				<legend>Saisissez le nom d'utilisateur et le mot de passe pour vous connecter</legend>
+				
+				<form method="post" action="connexion"> <!-- Effectuera un POST sur l'URL "connexion" -->
+					<label for="nom">Nom d'utilisateur</label>
+					<input type="text" id="nom" name="nom_param" value="<c:out value="${utilisateurForm.nom}"></c:out>"/><br>
+					<label for="mot_de_passe">Mot de passe</label> 
+					<input	type="password" id="mot_de_passe" name="mot_de_passe_param" value="<c:out value="${utilisateurForm.motDePasse}"></c:out>" /><br>
+					<input type="submit" value="Se connecter" />
+				</form>
+				
+			</fieldset>
 			
-			<form method="get" action="creationUtilisateur">
-				<input type="submit" value="Création utilisateur">
-			</form>
+			<c:if test="${!empty messageConnexion}"> 
+				<p><c:out value="${messageConnexion}"></c:out></p>
+			</c:if>
 			
+			<fieldset>
+			<legend>Créez un nouvel utilisateur</legend>
+			
+				<form method="get" action="creationUtilisateur">
+					<input type="submit" value="Créer un utilisateur">
+				</form>
+				
+			</fieldset>
+
 		</c:otherwise>
 	</c:choose>
 	
