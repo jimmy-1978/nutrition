@@ -2,6 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
+import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.ServletException;
@@ -22,6 +23,8 @@ public class AfficherMoisPrecedent extends HttpServlet {
 		Calendrier calendrier = new Calendrier(request);
 		calendrier.chargementDuMoisPrecedent();
 
+		ConnecterUtilisateurForm connexionUtilisateurForm = new ConnecterUtilisateurForm(request);
+		connexionUtilisateurForm.chargementDonneesUtilisateurSiConnecte();
 		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 	}
 }
