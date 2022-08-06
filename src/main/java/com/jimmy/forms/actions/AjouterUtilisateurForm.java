@@ -7,6 +7,7 @@ import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.exceptions.AjouterUtilisateurFormControleException;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
+import com.jimmy.util.Chaine;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -83,6 +84,10 @@ public class AjouterUtilisateurForm {
 
 		if (nom.isBlank()) {
 			throw new AjouterUtilisateurFormControleException("Le nom est obligatoire");
+		}
+
+		if (!Chaine.verifierCaracteresAutorises("nomUtilisateur", nom)) {
+			throw new AjouterUtilisateurFormControleException("Caractères autorisés = a-z, A-Z, 0-9, éàèùâêîôû et -_");
 		}
 
 		if (motDePasse.isBlank()) {

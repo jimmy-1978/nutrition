@@ -6,6 +6,7 @@ import com.jimmy.enums.TypeAliment;
 import com.jimmy.enums.UniteDeMesure;
 import com.jimmy.exceptions.AjouterAlimentFormControleException;
 import com.jimmy.forms.classes.AlimentForm;
+import com.jimmy.util.Chaine;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -85,6 +86,10 @@ public class AjouterAlimentForm {
 
 		if (nom.isEmpty()) {
 			throw new AjouterAlimentFormControleException("Veuillez saisir un nom");
+		}
+
+		if (!Chaine.verifierCaracteresAutorises("nomAliment", nom)) {
+			throw new AjouterAlimentFormControleException("Caractères autorisés = a-z, A-Z, éàèùâêîôû et -");
 		}
 
 		AlimentDaoImpl alimentDaoImpl = new AlimentDaoImpl();
