@@ -9,9 +9,9 @@ import com.jimmy.exceptions.AjouterActiviteFormControleException;
 import com.jimmy.forms.classes.ActiviteForm;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.util.DateUtil;
+import com.jimmy.util.GestionSession;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class AjouterActiviteForm {
 
@@ -30,11 +30,9 @@ public class AjouterActiviteForm {
 		// On initialise le tableau contenant les jours de la semaine concernée (dans
 		// "activiteForm")
 
-		HttpSession session = request.getSession();
-
-		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
-		int moisEnCours = (int) session.getAttribute("moisEnCours");
-		int numeroSemaine = (int) session.getAttribute("numeroSemaine");
+		int anneeEnCours = (int) GestionSession.recupererAttribut(request, "anneeEnCours");
+		int moisEnCours = (int) GestionSession.recupererAttribut(request, "moisEnCours");
+		int numeroSemaine = (int) GestionSession.recupererAttribut(request, "numeroSemaine");
 
 		activiteForm = new ActiviteForm();
 		activiteForm.setJoursDeLaSemaineForm(DateUtil.getJoursDeLaSemaine(anneeEnCours, moisEnCours, numeroSemaine));
@@ -98,7 +96,8 @@ public class AjouterActiviteForm {
 			throw new AjouterActiviteFormControleException("Veuillez saisir une valeur différente de 0");
 		}
 
-		UtilisateurForm utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
+		UtilisateurForm utilisateurForm = (UtilisateurForm) GestionSession.recupererAttribut(request,
+				"utilisateurForm");
 		activite = new Activite(utilisateurForm.getNom(), dateActivite, typeActivite, nbCaloriesBrulees);
 
 		return activite;

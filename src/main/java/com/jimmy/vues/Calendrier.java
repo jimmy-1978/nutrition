@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.util.DateUtil;
+import com.jimmy.util.GestionSession;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class Calendrier {
 
@@ -20,9 +20,8 @@ public class Calendrier {
 
 	public void chargementDuMoisEnCours() {
 
-		HttpSession session = request.getSession();
-		Integer anneeEnCours = (Integer) session.getAttribute("anneeEnCours");
-		Integer moisEnCours = (Integer) session.getAttribute("moisEnCours");
+		Integer anneeEnCours = (Integer) GestionSession.recupererAttribut(request, "anneeEnCours");
+		Integer moisEnCours = (Integer) GestionSession.recupererAttribut(request, "moisEnCours");
 
 		if (anneeEnCours != null && moisEnCours != null) {
 			chargementDuMois(anneeEnCours, moisEnCours);
@@ -33,9 +32,8 @@ public class Calendrier {
 
 	public void chargementDuMoisSuivant() {
 
-		HttpSession session = request.getSession();
-		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
-		int moisEnCours = (int) session.getAttribute("moisEnCours");
+		int anneeEnCours = (int) GestionSession.recupererAttribut(request, "anneeEnCours");
+		int moisEnCours = (int) GestionSession.recupererAttribut(request, "moisEnCours");
 
 		LocalDate date = LocalDate.of(anneeEnCours, moisEnCours, 1);
 		date = date.plusMonths(1);
@@ -46,9 +44,8 @@ public class Calendrier {
 
 	public void chargementDuMoisPrecedent() {
 
-		HttpSession session = request.getSession();
-		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
-		int moisEnCours = (int) session.getAttribute("moisEnCours");
+		int anneeEnCours = (int) GestionSession.recupererAttribut(request, "anneeEnCours");
+		int moisEnCours = (int) GestionSession.recupererAttribut(request, "moisEnCours");
 
 		LocalDate date = LocalDate.of(anneeEnCours, moisEnCours, 1);
 		date = date.minusMonths(1);
@@ -82,8 +79,8 @@ public class Calendrier {
 
 	private void chargementJournees(LocalDate dateFrom, LocalDate dateTo) {
 
-		HttpSession session = request.getSession();
-		UtilisateurForm utilisateurForm = (UtilisateurForm) session.getAttribute("utilisateurForm");
+		UtilisateurForm utilisateurForm = (UtilisateurForm) GestionSession.recupererAttribut(request,
+				"utilisateurForm");
 
 		int numeroDeSemaine = 1;
 		Journee[] tabJournee = null;
@@ -114,7 +111,8 @@ public class Calendrier {
 		request.setAttribute("mois", mois);
 		request.setAttribute("tabNomLongJour", tabNomLongJour);
 
-		session.setAttribute("anneeEnCours", mois.getAnnee());
-		session.setAttribute("moisEnCours", mois.getNumero());
+		GestionSession.ajouterAttribut(request, "anneeEnCours", mois.getAnnee());
+		GestionSession.ajouterAttribut(request, "moisEnCours", mois.getNumero());
+
 	}
 }

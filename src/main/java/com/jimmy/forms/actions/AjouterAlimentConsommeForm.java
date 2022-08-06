@@ -14,9 +14,9 @@ import com.jimmy.exceptions.AjouterAlimentConsommeFormControleException;
 import com.jimmy.forms.classes.AlimentConsommeForm;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.util.DateUtil;
+import com.jimmy.util.GestionSession;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class AjouterAlimentConsommeForm {
 
@@ -30,15 +30,16 @@ public class AjouterAlimentConsommeForm {
 
 		if (filtreMaj) { // Soit on vient de modifier le filtre
 			filtreListeAliment = TypeAliment.valueOf(request.getParameter("filtre_param"));
-			request.getSession().setAttribute("filtreListeAlimentConsomme", filtreListeAliment.toString());
+			GestionSession.ajouterAttribut(request, "filtreListeAlimentConsomme", filtreListeAliment.toString());
+
 		} else {
-			String filtre = (String) request.getSession().getAttribute("filtreListeAlimentConsomme");
+			String filtre = (String) GestionSession.recupererAttribut(request, "filtreListeAlimentConsomme");
 			if (filtre != null) { // Soit il est déjà en session
 				filtreListeAliment = TypeAliment.valueOf(filtre);
 			} else {
 				TypeAliment[] tabTypeAliment = TypeAliment.values();
 				filtreListeAliment = tabTypeAliment[0]; // Soit on prend le filtre par défaut (1er du tableau)
-				request.getSession().setAttribute("filtreListeAlimentConsomme", filtreListeAliment.toString());
+				GestionSession.ajouterAttribut(request, "filtreListeAlimentConsomme", filtreListeAliment.toString());
 			}
 		}
 
@@ -51,11 +52,9 @@ public class AjouterAlimentConsommeForm {
 		// On initialise le tableau contenant les jours de la semaine concernée (dans
 		// "activiteForm")
 
-		HttpSession session = request.getSession();
-
-		int anneeEnCours = (int) session.getAttribute("anneeEnCours");
-		int moisEnCours = (int) session.getAttribute("moisEnCours");
-		int numeroSemaine = (int) session.getAttribute("numeroSemaine");
+		int anneeEnCours = (int) GestionSession.recupererAttribut(request, "anneeEnCours");
+		int moisEnCours = (int) GestionSession.recupererAttribut(request, "moisEnCours");
+		int numeroSemaine = (int) GestionSession.recupererAttribut(request, "numeroSemaine");
 
 		alimentConsommeForm = new AlimentConsommeForm();
 
@@ -115,6 +114,8 @@ public class AjouterAlimentConsommeForm {
 			return false;
 		}
 
+		GestionSession.enleverAttribut(request, "filtreListeAlimentConsomme");
+
 		return true;
 
 	}
@@ -142,7 +143,8 @@ public class AjouterAlimentConsommeForm {
 			throw new AjouterAlimentConsommeFormControleException("Veuillez saisir un nombre entier différent de zéro");
 		}
 
-		UtilisateurForm utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
+		UtilisateurForm utilisateurForm = (UtilisateurForm) GestionSession.recupererAttribut(request,
+				"utilisateurForm");
 		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
 		Utilisateur utilisateur = null;
 		try {

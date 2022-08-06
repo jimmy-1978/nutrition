@@ -2,6 +2,8 @@ package com.jimmy.forms.actions;
 
 import java.util.Enumeration;
 
+import com.jimmy.util.GestionSession;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 public class AjouterForm {
@@ -27,7 +29,7 @@ public class AjouterForm {
 		// Au sauvegarde en session car sur le formulaire de saisie suivant on ne sait
 		// plus sur quelle semaine on est..
 
-		request.getSession().setAttribute("numeroSemaine", numeroSemaine);
+		GestionSession.ajouterAttribut(request, "numeroSemaine", numeroSemaine);
 
 		return typeAjout;
 

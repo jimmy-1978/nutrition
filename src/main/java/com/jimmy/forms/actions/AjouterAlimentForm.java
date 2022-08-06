@@ -8,7 +8,6 @@ import com.jimmy.exceptions.AjouterAlimentFormControleException;
 import com.jimmy.forms.classes.AlimentForm;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 public class AjouterAlimentForm {
 
@@ -24,8 +23,6 @@ public class AjouterAlimentForm {
 	}
 
 	private AlimentForm initialiserAlimentForm() {
-
-		HttpSession session = request.getSession();
 
 		alimentForm = new AlimentForm();
 

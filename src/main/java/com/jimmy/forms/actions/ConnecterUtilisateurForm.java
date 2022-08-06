@@ -6,6 +6,7 @@ import com.jimmy.db.UtilisateurDaoImpl;
 import com.jimmy.exceptions.ConnecterUtilisateurFormControleException;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
+import com.jimmy.util.GestionSession;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,10 +18,10 @@ public class ConnecterUtilisateurForm {
 
 	public ConnecterUtilisateurForm(HttpServletRequest request) {
 		this.request = request;
-		utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
+		utilisateurForm = (UtilisateurForm) GestionSession.recupererAttribut(request, "utilisateurForm");
 		if (utilisateurForm == null) {
 			utilisateurForm = new UtilisateurForm();
-			request.getSession().setAttribute("utilisateurForm", utilisateurForm);
+			GestionSession.ajouterAttribut(request, "utilisateurForm", utilisateurForm);
 		}
 	}
 
