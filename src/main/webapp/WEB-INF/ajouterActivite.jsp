@@ -23,9 +23,11 @@
 			</c:forEach>
 		</select><br>
 		<input type="submit" value="Ajouter">
-		<c:if test="${!empty activiteForm.erreurAjout}">
-			<p>${activiteForm.erreurAjout}</p>
-		</c:if>	
 	</form>
+	
+	<c:if test="${!empty activiteForm.erreurAjout}">
+		<p>${activiteForm.erreurAjout}</p>
+	</c:if>	
+	
 </body>
 </html>

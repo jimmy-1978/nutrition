@@ -115,4 +115,14 @@
     <servlet-name>FiltrerListeAlimentConsomme</servlet-name>
     <url-pattern>/filtrerListeAlimentConsomme</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreerAliment</display-name>
+    <servlet-name>CreerAliment</servlet-name>
+    <servlet-class>com.jimmy.servlets.CreerAliment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreerAliment</servlet-name>
+    <url-pattern>/creerAliment</url-pattern>
+  </servlet-mapping>
 </web-app>

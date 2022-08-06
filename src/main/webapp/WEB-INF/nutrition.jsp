@@ -82,5 +82,12 @@
 		</c:forEach>
 		</table>			
 	</c:if>
+	
+	<c:if test="${utilisateurForm.connecte}">
+		<form methode="get" action="ajouter">
+			<input type="submit" value="Créer un nouvel aliment">
+		</form>
+	</c:if>
+	
 </body>
 </html>
