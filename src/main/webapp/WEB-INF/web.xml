@@ -17,12 +17,12 @@
   </jsp-config>
   <servlet>
     <description></description>
-    <display-name>Nutrition</display-name>
-    <servlet-name>Nutrition</servlet-name>
-    <servlet-class>com.jimmy.servlets.Nutrition</servlet-class>
+    <display-name>ChargerPageNutrition</display-name>
+    <servlet-name>ChargerPageNutrition</servlet-name>
+    <servlet-class>com.jimmy.servlets.ChargerPageNutrition</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Nutrition</servlet-name>
+    <servlet-name>ChargerPageNutrition</servlet-name>
     <url-pattern>/nutrition</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -57,22 +57,22 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MoisPrecedent</display-name>
-    <servlet-name>MoisPrecedent</servlet-name>
-    <servlet-class>com.jimmy.servlets.MoisPrecedent</servlet-class>
+    <display-name>AfficherMoisPrecedent</display-name>
+    <servlet-name>AfficherMoisPrecedent</servlet-name>
+    <servlet-class>com.jimmy.servlets.AfficherMoisPrecedent</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MoisPrecedent</servlet-name>
+    <servlet-name>AfficherMoisPrecedent</servlet-name>
     <url-pattern>/moisPrecedent</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MoisSuivant</display-name>
-    <servlet-name>MoisSuivant</servlet-name>
-    <servlet-class>com.jimmy.servlets.MoisSuivant</servlet-class>
+    <display-name>AfficherMoisSuivant</display-name>
+    <servlet-name>AfficherMoisSuivant</servlet-name>
+    <servlet-class>com.jimmy.servlets.AfficherMoisSuivant</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>MoisSuivant</servlet-name>
+    <servlet-name>AfficherMoisSuivant</servlet-name>
     <url-pattern>/moisSuivant</url-pattern>
   </servlet-mapping>
   <servlet>
