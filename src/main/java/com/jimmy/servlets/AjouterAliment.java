@@ -10,10 +10,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class CreerAliment extends HttpServlet {
+public class AjouterAliment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public CreerAliment() {
+	public AjouterAliment() {
 		super();
 	}
 

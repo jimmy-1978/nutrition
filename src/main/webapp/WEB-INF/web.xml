@@ -27,32 +27,32 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Connexion</display-name>
-    <servlet-name>Connexion</servlet-name>
-    <servlet-class>com.jimmy.servlets.Connexion</servlet-class>
+    <display-name>ConnecterUtilisateur</display-name>
+    <servlet-name>ConnecterUtilisateur</servlet-name>
+    <servlet-class>com.jimmy.servlets.ConnecterUtilisateur</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Connexion</servlet-name>
+    <servlet-name>ConnecterUtilisateur</servlet-name>
     <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Deconnexion</display-name>
-    <servlet-name>Deconnexion</servlet-name>
-    <servlet-class>com.jimmy.servlets.Deconnexion</servlet-class>
+    <display-name>DeconnecterUtilisateur</display-name>
+    <servlet-name>DeconnecterUtilisateur</servlet-name>
+    <servlet-class>com.jimmy.servlets.DeconnecterUtilisateur</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Deconnexion</servlet-name>
+    <servlet-name>DeconnecterUtilisateur</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>CreationUtilisateur</display-name>
-    <servlet-name>CreationUtilisateur</servlet-name>
-    <servlet-class>com.jimmy.servlets.CreationUtilisateur</servlet-class>
+    <display-name>AjouterUtilisateur</display-name>
+    <servlet-name>AjouterUtilisateur</servlet-name>
+    <servlet-class>com.jimmy.servlets.AjouterUtilisateur</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreationUtilisateur</servlet-name>
+    <servlet-name>AjouterUtilisateur</servlet-name>
     <url-pattern>/creationUtilisateur</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -117,12 +117,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>CreerAliment</display-name>
-    <servlet-name>CreerAliment</servlet-name>
-    <servlet-class>com.jimmy.servlets.CreerAliment</servlet-class>
+    <display-name>AjouterAliment</display-name>
+    <servlet-name>AjouterAliment</servlet-name>
+    <servlet-class>com.jimmy.servlets.AjouterAliment</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreerAliment</servlet-name>
+    <servlet-name>AjouterAliment</servlet-name>
     <url-pattern>/creerAliment</url-pattern>
   </servlet-mapping>
 </web-app>

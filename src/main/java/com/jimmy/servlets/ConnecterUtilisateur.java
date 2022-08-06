@@ -2,28 +2,28 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.actions.DeconnecterUtilisateurForm;
+import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class Deconnexion extends HttpServlet {
+public class ConnecterUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public Deconnexion() {
+	public ConnecterUtilisateur() {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		DeconnecterUtilisateurForm deconnexionUtilisateurForm = new DeconnecterUtilisateurForm(request);
-		deconnexionUtilisateurForm.seDeconnecter();
+		ConnecterUtilisateurForm connexionUtilisateurForm = new ConnecterUtilisateurForm(request);
+		connexionUtilisateurForm.seConnecter();
+		connexionUtilisateurForm.chargementDonneesUtilisateurSiConnecte();
 
 		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 
 	}
-
 }
