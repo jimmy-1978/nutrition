@@ -5,11 +5,11 @@ import com.jimmy.forms.classes.UtilisateurForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-public class DeconnexionUtilisateurForm {
+public class DeconnecterUtilisateurForm {
 
 	private HttpServletRequest request;
 
-	public DeconnexionUtilisateurForm(HttpServletRequest request) {
+	public DeconnecterUtilisateurForm(HttpServletRequest request) {
 		this.request = request;
 	}
 

@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDaoImpl;
-import com.jimmy.exceptions.ControleCreationUtilisateurException;
+import com.jimmy.exceptions.CreerUtilisateurControleException;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
 import com.jimmy.util.DateUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public class CreationUtilisateurForm {
+public class CreerUtilisateurForm {
 
 	private HttpServletRequest request;
 	private UtilisateurForm utilisateurForm;
 
-	public CreationUtilisateurForm(HttpServletRequest request) {
+	public CreerUtilisateurForm(HttpServletRequest request) {
 
 		this.request = request;
 		utilisateurForm = initialiserUtilisateurForm();
@@ -39,7 +39,7 @@ public class CreationUtilisateurForm {
 
 		try {
 			utilisateur = controleDonneesFormulaire();
-		} catch (ControleCreationUtilisateurException e) {
+		} catch (CreerUtilisateurControleException e) {
 
 			utilisateurForm.setErreurCreation(e.getMessage());
 
@@ -65,7 +65,7 @@ public class CreationUtilisateurForm {
 
 	}
 
-	private Utilisateur controleDonneesFormulaire() throws ControleCreationUtilisateurException {
+	private Utilisateur controleDonneesFormulaire() throws CreerUtilisateurControleException {
 
 		Utilisateur utilisateur = null;
 
@@ -82,19 +82,19 @@ public class CreationUtilisateurForm {
 		utilisateurForm.setDateDeNaissance(dateDeNaissance);
 
 		if (nom.isBlank()) {
-			throw new ControleCreationUtilisateurException("Le nom est obligatoire");
+			throw new CreerUtilisateurControleException("Le nom est obligatoire");
 		}
 
 		if (motDePasse.isBlank()) {
-			throw new ControleCreationUtilisateurException("Le mot de passe est obligatoire");
+			throw new CreerUtilisateurControleException("Le mot de passe est obligatoire");
 		}
 
 		if (!motDePasse.equals(confMotDePasse)) {
-			throw new ControleCreationUtilisateurException("Les deux mots de passe saisis ne correspondent pas");
+			throw new CreerUtilisateurControleException("Les deux mots de passe saisis ne correspondent pas");
 		}
 
 		if (dateDeNaissance == null) {
-			throw new ControleCreationUtilisateurException("La date de naissance est obligatoire");
+			throw new CreerUtilisateurControleException("La date de naissance est obligatoire");
 		}
 
 		UtilisateurDaoImpl utilisateurDaoImpl = new UtilisateurDaoImpl();
@@ -102,11 +102,11 @@ public class CreationUtilisateurForm {
 		try {
 			utilisateur = utilisateurDaoImpl.getByNom(nom);
 		} catch (Exception e) {
-			throw new ControleCreationUtilisateurException("Erreur technique accès DB");
+			throw new CreerUtilisateurControleException("Erreur technique accès DB");
 		}
 
 		if (utilisateur != null) {
-			throw new ControleCreationUtilisateurException("L'utilisateur existe déjà");
+			throw new CreerUtilisateurControleException("L'utilisateur existe déjà");
 		}
 
 		utilisateur = new Utilisateur(nom, motDePasse, sexe, dateDeNaissance);

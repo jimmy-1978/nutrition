@@ -2,7 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.actions.ConnexionUtilisateurForm;
+import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 import com.jimmy.forms.actions.CreerAlimentForm;
 
 import jakarta.servlet.ServletException;
@@ -24,7 +24,7 @@ public class CreerAliment extends HttpServlet {
 		boolean creationOk = creerAlimentForm.ajouter();
 
 		if (creationOk) {
-			ConnexionUtilisateurForm connexionUtilisateurForm = new ConnexionUtilisateurForm(request);
+			ConnecterUtilisateurForm connexionUtilisateurForm = new ConnecterUtilisateurForm(request);
 			connexionUtilisateurForm.chargementDonneesUtilisateurSiConnecte();
 			request.getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 		} else {

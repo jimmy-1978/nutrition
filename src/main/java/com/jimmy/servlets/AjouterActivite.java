@@ -3,7 +3,7 @@ package com.jimmy.servlets;
 import java.io.IOException;
 
 import com.jimmy.forms.actions.AjouterActiviteForm;
-import com.jimmy.forms.actions.ConnexionUtilisateurForm;
+import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -24,7 +24,7 @@ public class AjouterActivite extends HttpServlet {
 		boolean creationOk = ajouterActiviteForm.ajouter();
 
 		if (creationOk) {
-			ConnexionUtilisateurForm connexionUtilisateurForm = new ConnexionUtilisateurForm(request);
+			ConnecterUtilisateurForm connexionUtilisateurForm = new ConnecterUtilisateurForm(request);
 			connexionUtilisateurForm.chargementDonneesUtilisateurSiConnecte();
 			request.getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 		} else {

@@ -2,7 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.actions.DeconnexionUtilisateurForm;
+import com.jimmy.forms.actions.DeconnecterUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class Deconnexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		DeconnexionUtilisateurForm deconnexionUtilisateurForm = new DeconnexionUtilisateurForm(request);
+		DeconnecterUtilisateurForm deconnexionUtilisateurForm = new DeconnecterUtilisateurForm(request);
 		deconnexionUtilisateurForm.seDeconnecter();
 
 		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);

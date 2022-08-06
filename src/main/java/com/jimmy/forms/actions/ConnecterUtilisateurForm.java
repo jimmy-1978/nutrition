@@ -3,19 +3,19 @@ package com.jimmy.forms.actions;
 import com.jimmy.classes.Utilisateur;
 import com.jimmy.db.UtilisateurDao;
 import com.jimmy.db.UtilisateurDaoImpl;
-import com.jimmy.exceptions.ControleConnexionUtilisateurException;
+import com.jimmy.exceptions.ConnecterUtilisateurControleException;
 import com.jimmy.forms.classes.UtilisateurForm;
 import com.jimmy.listes.Liste;
 import com.jimmy.vues.Calendrier;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public class ConnexionUtilisateurForm {
+public class ConnecterUtilisateurForm {
 
 	private HttpServletRequest request;
 	private UtilisateurForm utilisateurForm;
 
-	public ConnexionUtilisateurForm(HttpServletRequest request) {
+	public ConnecterUtilisateurForm(HttpServletRequest request) {
 		this.request = request;
 		utilisateurForm = (UtilisateurForm) request.getSession().getAttribute("utilisateurForm");
 		if (utilisateurForm == null) {
@@ -62,7 +62,7 @@ public class ConnexionUtilisateurForm {
 		}
 	}
 
-	private Utilisateur controleDonneesFormulaire() throws ControleConnexionUtilisateurException {
+	private Utilisateur controleDonneesFormulaire() throws ConnecterUtilisateurControleException {
 
 		Utilisateur utilisateur = null;
 
@@ -73,11 +73,11 @@ public class ConnexionUtilisateurForm {
 		utilisateurForm.setMotDePasse(motDePasse);
 
 		if (nom.isBlank()) {
-			throw new ControleConnexionUtilisateurException("Nom obligatoire");
+			throw new ConnecterUtilisateurControleException("Nom obligatoire");
 		}
 
 		if (motDePasse.isBlank()) {
-			throw new ControleConnexionUtilisateurException("Mot de passe obligatoire");
+			throw new ConnecterUtilisateurControleException("Mot de passe obligatoire");
 		}
 
 		UtilisateurDao utilisateurDaoImpl = new UtilisateurDaoImpl();
@@ -85,11 +85,11 @@ public class ConnexionUtilisateurForm {
 			utilisateur = utilisateurDaoImpl.getByNom(utilisateurForm.getNom());
 		} catch (Exception e) {
 
-			throw new ControleConnexionUtilisateurException("Erreur technique accès DB");
+			throw new ConnecterUtilisateurControleException("Erreur technique accès DB");
 		}
 
 		if (utilisateur == null || !utilisateur.getMotDePasse().equals(motDePasse)) {
-			throw new ControleConnexionUtilisateurException("Nom et/ou mot de passe erroné");
+			throw new ConnecterUtilisateurControleException("Nom et/ou mot de passe erroné");
 		}
 
 		return utilisateur;

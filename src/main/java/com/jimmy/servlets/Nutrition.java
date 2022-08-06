@@ -2,7 +2,7 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.actions.ConnexionUtilisateurForm;
+import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class Nutrition extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		ConnexionUtilisateurForm connexionUtilisateurForm = new ConnexionUtilisateurForm(request);
+		ConnecterUtilisateurForm connexionUtilisateurForm = new ConnecterUtilisateurForm(request);
 		connexionUtilisateurForm.chargementDonneesUtilisateurSiConnecte();
 
 		request.getServletContext().getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
