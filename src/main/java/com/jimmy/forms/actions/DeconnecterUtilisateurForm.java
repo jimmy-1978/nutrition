@@ -1,6 +1,7 @@
 package com.jimmy.forms.actions;
 
 import com.jimmy.forms.classes.UtilisateurForm;
+import com.jimmy.util.GestionSession;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ public class DeconnecterUtilisateurForm {
 		UtilisateurForm utilisateurForm = (UtilisateurForm) session.getAttribute("utilisateurForm");
 		String nom = utilisateurForm.getNom();
 
-		session.removeAttribute("utilisateurForm");
+		GestionSession.effacerTousLesAttributs(request);
 
 		request.setAttribute("messageConnexion", "Utilisateur " + nom + " déconnecté");
 	}
