@@ -43,9 +43,7 @@
 				<input type="submit" value="Ajouter">
 			</form>	
 		
-			<form method="get" action="nutrition">
-				<input type="submit" value="Annuler">
-			</form>
+			<c:import url="annuler.html" />
 			
 		</fieldset>
 		
