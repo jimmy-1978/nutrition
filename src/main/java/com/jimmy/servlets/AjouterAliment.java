@@ -2,8 +2,8 @@ package com.jimmy.servlets;
 
 import java.io.IOException;
 
-import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 import com.jimmy.forms.actions.AjouterAlimentForm;
+import com.jimmy.forms.actions.ConnecterUtilisateurForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -28,7 +28,7 @@ public class AjouterAliment extends HttpServlet {
 			connexionUtilisateurForm.chargementDonneesUtilisateurSiConnecte();
 			request.getRequestDispatcher("/WEB-INF/nutrition.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/WEB-INF/creerAliment.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/ajouterAliment.jsp").forward(request, response);
 		}
 
 	}

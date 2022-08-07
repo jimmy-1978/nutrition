@@ -21,7 +21,7 @@ public class AjouterUtilisateur extends HttpServlet {
 
 		AjouterUtilisateurForm creationUtilisateurForm = new AjouterUtilisateurForm(request);
 
-		request.getRequestDispatcher("/WEB-INF/creationUtilisateur.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/ajouterUtilisateur.jsp").forward(request, response);
 
 	}
 
@@ -37,7 +37,7 @@ public class AjouterUtilisateur extends HttpServlet {
 
 		} else {
 
-			request.getRequestDispatcher("/WEB-INF/creationUtilisateur.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/ajouterUtilisateur.jsp").forward(request, response);
 
 		}
 	}

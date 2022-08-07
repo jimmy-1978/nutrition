@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.jimmy.forms.actions.AjouterActiviteForm;
 import com.jimmy.forms.actions.AjouterAlimentConsommeForm;
-import com.jimmy.forms.actions.AjouterForm;
 import com.jimmy.forms.actions.AjouterAlimentForm;
+import com.jimmy.forms.actions.AjouterForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -28,7 +28,7 @@ public class Ajouter extends HttpServlet {
 
 		AjouterAlimentForm creerAlimentForm = new AjouterAlimentForm(request);
 
-		request.getRequestDispatcher("/WEB-INF/creerAliment.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/ajouterAliment.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
