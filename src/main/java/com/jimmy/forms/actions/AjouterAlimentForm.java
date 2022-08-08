@@ -129,7 +129,23 @@ public class AjouterAlimentForm {
 			nbProteines = new BigDecimal(proteines);
 		} catch (Exception e) {
 			throw new AjouterAlimentFormControleException(
-					"Veuillez saisir une valeur décimale dans le champs protéines");
+					"Veuillez saisir une valeur décimale valide (99.9) dans le champs protéines");
+		}
+
+		if (nbProteines.compareTo(BigDecimal.ZERO) == 0) {
+			throw new AjouterAlimentFormControleException("Veuillez saisir une valeur différente de 0");
+		}
+
+		if (nbProteines.compareTo(BigDecimal.ZERO) < 0) {
+			throw new AjouterAlimentFormControleException("Veuillez saisir une valeur positive");
+		}
+
+		if (nbProteines.scale() > 1) {
+			throw new AjouterAlimentFormControleException("Maximum 1 décimale dans le champs protéines");
+		}
+
+		if (nbProteines.compareTo(BigDecimal.valueOf(100)) >= 0) {
+			throw new AjouterAlimentFormControleException("La valeur du champs protéines doit être < 100");
 		}
 
 		aliment = new Aliment(typeAliment, nom, nbKCal, nbProteines, uniteDeMesure);
