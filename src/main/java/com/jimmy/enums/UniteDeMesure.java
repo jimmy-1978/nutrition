@@ -1,7 +1,7 @@
 package com.jimmy.enums;
 
 public enum UniteDeMesure {
-	millilitre("ml"), gramme("gr");
+	piece("pc"), millilitre("ml"), gramme("gr");
 
 	private String nomCourt;
 

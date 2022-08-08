@@ -10,6 +10,7 @@ public class AlimentForm extends Aliment {
 	private UniteDeMesure[] tabUniteDeMesure;
 	private String kiloCalForm; // Visiblement ne supporte pas le nom kCal... (erreur E.L. javabean/propriété
 								// introuvable) !!!
+	private String proteinesEnGrammesForm;
 	private String erreurAjout;
 
 	public AlimentForm() {
@@ -46,6 +47,14 @@ public class AlimentForm extends Aliment {
 
 	public String getErreurAjout() {
 		return erreurAjout;
+	}
+
+	public void setProteinesEnGrammesForm(String proteinesEnGrammesForm) {
+		this.proteinesEnGrammesForm = proteinesEnGrammesForm;
+	}
+
+	public String getProteinesEnGrammesForm() {
+		return proteinesEnGrammesForm;
 	}
 
 }

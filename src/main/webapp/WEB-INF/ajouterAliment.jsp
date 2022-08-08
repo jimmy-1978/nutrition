@@ -10,6 +10,7 @@
 		<legend>Saisissez les informations du nouvel aliment à ajouter</legend>
 	
 		<form method="post" action="creerAliment">
+		
 			<label for="type_aliment">Type aliment</label>
 			<select id="type_aliment" name="type_aliment_param">
 				<c:forEach items="${alimentForm.tabTypeAliment}" var="type_aliment">
@@ -17,11 +18,8 @@
 					<c:out value="${type_aliment}"></c:out>
 					</option>
 				</c:forEach>		
-			</select><br>		
-			<label for="nom">Nom</label>
-			<input type="text" id="nom" name="nom_param" value="<c:out value="${alimentForm.nom}"></c:out>"><br>
-			<label for="kcal">Kcal par unité de mesure</label>
-			<input type="text" id="kcal" name="kcal_param" value="<c:out value="${alimentForm.kiloCalForm}"></c:out>"><br>
+			</select><br>
+			
 			<label for="unite_de_mesure">Unité de mesure</label>
 			<select id="unite_de_mesure" name="unite_de_mesure_param">
 				<c:forEach items="${alimentForm.tabUniteDeMesure}" var="unite_de_mesure">
@@ -30,6 +28,16 @@
 					</option>
 				</c:forEach>		
 			</select><br>
+					
+			<label for="nom">Nom</label>
+			<input type="text" id="nom" name="nom_param" value="<c:out value="${alimentForm.nom}"></c:out>"><br>
+			
+			<label for="kcal">Kcal par unité de mesure</label>
+			<input type="text" id="kcal" name="kcal_param" value="<c:out value="${alimentForm.kiloCalForm}"></c:out>"><br>
+			
+			<label for="proteines">Protéines (en grammes) par unité de mesure</label>
+			<input type="text" id="proteines" name="proteines_param" value="<c:out value="${alimentForm.proteinesEnGrammesForm}"></c:out>"><br>
+			
 			<input type="submit" value="Ajouter">
 		</form>
 		

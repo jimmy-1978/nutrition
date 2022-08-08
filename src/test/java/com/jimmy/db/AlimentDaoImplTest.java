@@ -1,7 +1,9 @@
 package com.jimmy.db;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 import org.junit.jupiter.api.AfterEach;
@@ -34,7 +36,7 @@ class AlimentDaoImplTest {
 		try {
 			alimentDaoImpl.deleteTable();
 		} catch (Exception e) {
-
+			fail(e.getMessage());
 		}
 
 	}
@@ -46,7 +48,7 @@ class AlimentDaoImplTest {
 		try {
 			alimentDaoImpl.createTable();
 		} catch (Exception e) {
-
+			fail(e.getMessage());
 		}
 
 	}
@@ -54,11 +56,11 @@ class AlimentDaoImplTest {
 	@Test
 	void accesAUnAlimentparSonId() {
 
-		Object[] tabParam = { TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(),
-				Float.valueOf("1.12345"), UniteDeMesure.valueOf("gramme") };
-		Object[] tabResultat = new Object[4];
-		Aliment aliment = new Aliment((TypeAliment) tabParam[0], (String) tabParam[1], (float) tabParam[2],
-				(UniteDeMesure) tabParam[3]);
+		Object[] tabParam = { TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(), 12,
+				new BigDecimal("12.4"), UniteDeMesure.valueOf("gramme") };
+		Object[] tabResultat = new Object[5];
+		Aliment aliment = new Aliment((TypeAliment) tabParam[0], (String) tabParam[1], (int) tabParam[2],
+				(BigDecimal) tabParam[3], (UniteDeMesure) tabParam[4]);
 		int id = 0;
 		try {
 			id = alimentDaoImpl.create(aliment);
@@ -67,10 +69,11 @@ class AlimentDaoImplTest {
 			tabResultat[0] = aliment.getTypeAliment();
 			tabResultat[1] = aliment.getNom();
 			tabResultat[2] = aliment.getKCalParUniteDeMesure();
-			tabResultat[3] = aliment.getUniteDeMesure();
+			tabResultat[3] = aliment.getProteinesEnGrammes();
+			tabResultat[4] = aliment.getUniteDeMesure();
 
 		} catch (Exception e) {
-
+			fail(e.getMessage());
 		}
 		assertThat(tabResultat).isEqualTo(tabParam);
 
@@ -100,7 +103,7 @@ class AlimentDaoImplTest {
 //			tabResultat[1] = aliment.getKCalParUniteDeMesure();
 //			tabResultat[2] = aliment.getUniteDeMesure();
 //		} catch (Exception e) {
-//
+// fail(e.getMessage());
 //		}
 //
 //		assertThat(tabResultat).isEqualTo(tabParam);
@@ -108,7 +111,7 @@ class AlimentDaoImplTest {
 //		try {
 //			alimentDaoImpl.delete(aliment.getId());
 //		} catch (Exception e) {
-//
+// fail(e.getMessage());
 //		}
 //
 //	}
@@ -116,8 +119,8 @@ class AlimentDaoImplTest {
 	@Test
 	void deleteDUnAliment() {
 
-		Aliment aliment = new Aliment(TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(),
-				Float.valueOf("1.12345"), UniteDeMesure.valueOf("gramme"));
+		Aliment aliment = new Aliment(TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(), 12,
+				BigDecimal.valueOf(16), UniteDeMesure.valueOf("gramme"));
 
 		try {
 			int resultat = alimentDaoImpl.create(aliment);
@@ -126,7 +129,7 @@ class AlimentDaoImplTest {
 			aliment = alimentDaoImpl.getById(resultat);
 
 		} catch (Exception e) {
-
+			fail(e.getMessage());
 		}
 
 		assertThat(aliment).isNull();
@@ -136,13 +139,13 @@ class AlimentDaoImplTest {
 	@Test
 	void creationDUnAliment() {
 
-		Aliment aliment = new Aliment(TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(),
-				Float.valueOf("1.12345"), UniteDeMesure.valueOf("gramme"));
+		Aliment aliment = new Aliment(TypeAliment.valueOf("solide"), "poire-" + Instant.now().toEpochMilli(), 12,
+				BigDecimal.valueOf(16), UniteDeMesure.valueOf("gramme"));
 		int resultat = 0;
 		try {
 			resultat = alimentDaoImpl.create(aliment);
 		} catch (Exception e) {
-
+			fail(e.getMessage());
 		}
 
 		assertThat(resultat).isGreaterThanOrEqualTo(1);
@@ -150,7 +153,7 @@ class AlimentDaoImplTest {
 		try {
 			alimentDaoImpl.delete(resultat);
 		} catch (Exception e) {
-
+			fail(e.getMessage());
 		}
 	}
 

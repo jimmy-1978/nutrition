@@ -1,5 +1,6 @@
 package com.jimmy.db;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,8 @@ public class AlimentDaoImpl implements AlimentDao {
 				  id INT NOT NULL,
 				  type VARCHAR(30) NOT NULL,
 				  nom VARCHAR(30) NOT NULL,
-				  kcal_par_unite_de_mesure FLOAT NOT NULL,
+				  kcal INT NOT NULL,
+				  quantite_proteine DECIMAL(3,1) NOT NULL,
 				  unite_de_mesure VARCHAR(10) NOT NULL,
 				  PRIMARY KEY (id, nom),
 				  UNIQUE INDEX nom_UNIQUE (nom ASC) VISIBLE);
@@ -68,7 +70,7 @@ public class AlimentDaoImpl implements AlimentDao {
 		List<Aliment> listeAliment = null;
 
 		String sql = """
-				SELECT id, type, nom, kcal_par_unite_de_mesure, unite_de_mesure
+				SELECT id, type, nom, kcal, quantite_proteine, unite_de_mesure
 				FROM aliment
 				""";
 		ouvrirConnexion();
@@ -83,10 +85,12 @@ public class AlimentDaoImpl implements AlimentDao {
 				int id = result.getInt("id");
 				TypeAliment typeAliment = TypeAliment.valueOf(result.getString("type"));
 				String nom = result.getString("nom");
-				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
+				int kCalParUniteDeMesure = result.getInt("kcal");
+				BigDecimal quantiteProteine = result.getBigDecimal("quantite_proteine");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
-				listeAliment.add(new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure));
+				listeAliment
+						.add(new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, quantiteProteine, uniteDeMesure));
 
 			}
 		} catch (Exception e) {
@@ -104,7 +108,7 @@ public class AlimentDaoImpl implements AlimentDao {
 	public Aliment getById(int id) throws AlimentDaoException {
 
 		String sql = """
-				SELECT type, nom, kcal_par_unite_de_mesure, unite_de_mesure
+				SELECT type, nom, kcal, quantite_proteine, unite_de_mesure
 				FROM aliment
 				WHERE id = ?
 				""";
@@ -117,10 +121,11 @@ public class AlimentDaoImpl implements AlimentDao {
 			while (result.next()) {
 				TypeAliment typeAliment = TypeAliment.valueOf(result.getString("type"));
 				String nom = result.getString("nom");
-				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
+				int kCalParUniteDeMesure = result.getInt("kcal");
+				BigDecimal quantiteProteine = result.getBigDecimal("quantite_proteine");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
-				return new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure);
+				return new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, quantiteProteine, uniteDeMesure);
 
 			}
 		} catch (Exception e) {
@@ -135,7 +140,7 @@ public class AlimentDaoImpl implements AlimentDao {
 	public Aliment getByNom(String nom) throws AlimentDaoException {
 
 		String sql = """
-				SELECT id, type, kcal_par_unite_de_mesure, unite_de_mesure
+				SELECT id, type, kcal, quantite_proteine, unite_de_mesure
 				FROM aliment
 				WHERE nom = ?
 				""";
@@ -148,10 +153,11 @@ public class AlimentDaoImpl implements AlimentDao {
 			while (result.next()) {
 				int id = result.getInt("id");
 				TypeAliment typeAliment = TypeAliment.valueOf(result.getString("type"));
-				float kCalParUniteDeMesure = result.getFloat("kcal_par_unite_de_mesure");
+				int kCalParUniteDeMesure = result.getInt("kcal");
+				BigDecimal quantiteProteine = result.getBigDecimal("quantite_proteine");
 				UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(result.getString("unite_de_mesure"));
 
-				return new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, uniteDeMesure);
+				return new Aliment(id, typeAliment, nom, kCalParUniteDeMesure, quantiteProteine, uniteDeMesure);
 
 			}
 		} catch (Exception e) {
@@ -168,8 +174,8 @@ public class AlimentDaoImpl implements AlimentDao {
 			int id = rechercherId();
 			String sql = """
 					INSERT INTO aliment
-					(id, type, nom, kcal_par_unite_de_mesure, unite_de_mesure)
-					VALUES ( ? , ? , ? , ? , ? )
+					(id, type, nom, kcal, quantite_proteine, unite_de_mesure)
+					VALUES ( ? , ? , ? , ? , ? , ? )
 					""";
 			ouvrirConnexion();
 
@@ -177,9 +183,10 @@ public class AlimentDaoImpl implements AlimentDao {
 			preparedStatement.setInt(1, id);
 			preparedStatement.setString(2, aliment.getTypeAliment().toString());
 			preparedStatement.setString(3, aliment.getNom());
-			preparedStatement.setFloat(4, aliment.getKCalParUniteDeMesure());
+			preparedStatement.setInt(4, aliment.getKCalParUniteDeMesure());
+			preparedStatement.setBigDecimal(5, aliment.getProteinesEnGrammes());
 			UniteDeMesure uniteDeMesure = aliment.getUniteDeMesure();
-			preparedStatement.setString(5, uniteDeMesure.toString());
+			preparedStatement.setString(6, uniteDeMesure.toString());
 
 			preparedStatement.execute();
 

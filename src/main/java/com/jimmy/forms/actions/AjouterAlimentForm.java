@@ -1,5 +1,7 @@
 package com.jimmy.forms.actions;
 
+import java.math.BigDecimal;
+
 import com.jimmy.classes.Aliment;
 import com.jimmy.db.AlimentDaoImpl;
 import com.jimmy.enums.TypeAliment;
@@ -77,11 +79,13 @@ public class AjouterAlimentForm {
 		TypeAliment typeAliment = TypeAliment.valueOf(request.getParameter("type_aliment_param"));
 		String nom = request.getParameter("nom_param");
 		String kCal = request.getParameter("kcal_param");
+		String proteines = request.getParameter("proteines_param");
 		UniteDeMesure uniteDeMesure = UniteDeMesure.valueOf(request.getParameter("unite_de_mesure_param"));
 
 		alimentForm.setTypeAliment(typeAliment);
 		alimentForm.setNom(nom);
 		alimentForm.setKiloCalForm(kCal);
+		alimentForm.setProteinesEnGrammesForm(proteines);
 		alimentForm.setUniteDeMesure(uniteDeMesure);
 
 		if (nom.isEmpty()) {
@@ -116,7 +120,19 @@ public class AjouterAlimentForm {
 			throw new AjouterAlimentFormControleException("Veuillez saisir une valeur différente de 0");
 		}
 
-		aliment = new Aliment(typeAliment, nom, nbKCal, uniteDeMesure);
+		if (proteines.isBlank()) {
+			throw new AjouterAlimentFormControleException("Veuillez saisir une valeur dans le champs proteines");
+		}
+
+		BigDecimal nbProteines = null;
+		try {
+			nbProteines = new BigDecimal(proteines);
+		} catch (Exception e) {
+			throw new AjouterAlimentFormControleException(
+					"Veuillez saisir une valeur décimale dans le champs protéines");
+		}
+
+		aliment = new Aliment(typeAliment, nom, nbKCal, nbProteines, uniteDeMesure);
 
 		return aliment;
 
